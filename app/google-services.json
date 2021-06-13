@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "2632389519",
+    "project_id": "fiek-trivia-app",
+    "storage_bucket": "fiek-trivia-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2632389519:android:1c688a98c787dcf3a8b1fa",
+        "android_client_info": {
+          "package_name": "com.unipr.triviaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2632389519-b0dbukadmk1re1ldhg9upsdtdohrah5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4JO_ivhV-8Saj6tr3NC3VI6Nv52HSVms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2632389519-b0dbukadmk1re1ldhg9upsdtdohrah5a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
