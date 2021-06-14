@@ -54,10 +54,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void registerUser() {
-        String name = etName.getEditableText().toString();
-        String lastName = etLastName.getEditableText().toString();
-        String email = etEmail.getEditableText().toString();
-        String password = etPassword.getEditableText().toString();
+        String name = etName.getEditableText().toString().trim();
+        String lastName = etLastName.getEditableText().toString().trim();
+        String email = etEmail.getEditableText().toString().trim();
+        String password = etPassword.getEditableText().toString().trim();
 
         if (name.isEmpty()) {
             etName.setError("Name is required!");
@@ -90,29 +90,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    User user = new User(name, lastName, email);
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                User user = new User(name, lastName, email);
 
-                    FirebaseDatabase.getInstance().getReference("Users")
-                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(RegisterActivity.this, "User registered successfully!", Toast.LENGTH_LONG).show();
-                            } else
-                            {
-                                Toast.makeText(RegisterActivity.this, "Failed to register!", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                } else
-                {
-                    Toast.makeText(RegisterActivity.this, "Failed to register!", Toast.LENGTH_LONG).show();
-                }
+                FirebaseDatabase.getInstance().getReference("Users")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(user).addOnCompleteListener(task1 -> {
+                    if (task1.isSuccessful()) {
+                        Toast.makeText(RegisterActivity.this, "User registered successfully!", Toast.LENGTH_LONG).show();
+                    } else
+                    {
+                        Toast.makeText(RegisterActivity.this, "Failed to register!", Toast.LENGTH_LONG).show();
+                    }
+                });
+            } else
+            {
+                Toast.makeText(RegisterActivity.this, "Email address must be unique!", Toast.LENGTH_LONG).show();
             }
         });
 
