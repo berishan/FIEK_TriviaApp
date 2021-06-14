@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="16dp"
+    android:gravity="center_vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register Form"
+            android:textSize="30dp"
+            android:id="@+id/imgIcon"
+            android:padding="20dp"
+            android:layout_centerHorizontal="true">
+        </TextView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_below="@id/imgIcon">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvName"
+                android:textSize="22sp"
+                android:text="Name"></TextView>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvName"
+                android:id="@+id/etName"
+                android:inputType="textCapWords"
+                android:imeOptions="actionNext"></EditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvLastName"
+                android:textSize="22sp"
+                android:text="Last Name"
+                android:layout_below="@id/etName"></TextView>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvLastName"
+                android:id="@+id/etLastname"
+                android:inputType="textCapWords"
+                android:imeOptions="actionNext"></EditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvEmail"
+                android:textSize="22sp"
+                android:text="Email"
+                android:layout_below="@id/etLastname"></TextView>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvEmail"
+                android:id="@+id/etEmail"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"></EditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPassword"
+                android:textSize="22sp"
+                android:text="Password"
+                android:layout_below="@id/etEmail"></TextView>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvPassword"
+                android:id="@+id/etPassword"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"></EditText>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:id="@+id/btnRegister"
+                android:text="Register"
+                android:layout_below="@id/etPassword"
+                android:layout_alignParentLeft="true"
+                android:padding="10dp"
+                ></Button>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
