@@ -8,44 +8,55 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Pattern;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity{
 
-    private Button register, login;
+    private Button btnLogin;
     private EditText etEmail, etPassword;
-
-
+    private TextView twRegister, twForgotPassword;
     private FirebaseAuth mAuth;
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_login);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
-        register = findViewById(R.id.btnRegister);
-        login = findViewById(R.id.btnLogin);
-        register.setOnClickListener(this);
-        login.setOnClickListener(this);
+        twRegister = findViewById(R.id.twRegister);
+        btnLogin = findViewById(R.id.btnLogin);
+        twForgotPassword = findViewById(R.id.twForgotPassword);
 
-        mAuth = FirebaseAuth.getInstance();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnRegister:
-                startActivity(new Intent(this, RegisterActivity.class));
-                break;
-            case R.id.btnLogin:
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 login();
-                break;
-        }
+            }
+        });
+
+        twRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
+
+        twForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
+            }
+        });
+
     }
+
 
     public void login() {
 
@@ -53,28 +64,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String password = etPassword.getEditableText().toString().trim();
 
         if (email.isEmpty()) {
-            etEmail.setError("Email is required!");
+            etEmail.setError(getString(R.string.email_required));
             etEmail.requestFocus();
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            etEmail.setError("Invalid email regex!");
+            etEmail.setError(getString(R.string.email_valid));
             etEmail.requestFocus();
             return;
         }
 
         if (password.isEmpty()) {
-            etPassword.setError("Email is required!");
+            etPassword.setError(getString(R.string.password_required));
             etPassword.requestFocus();
             return;
         }
+        // TODO passwordValidation
 
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task ->
         {
             if (task.isSuccessful()) {
-                // redirect
+                FirebaseUser user = mAuth.getCurrentUser();
+                if(!user.isEmailVerified()){
+                    Toast.makeText(this.getApplicationContext(), getString(R.string.login_fail_verify), Toast.LENGTH_LONG).show();
+                }
+                else {
+                    // TODO LoginUser
+                }
             } else {
-                Toast.makeText(this.getApplicationContext(), "Wrong Credentials!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.getApplicationContext(), getString(R.string.login_fail), Toast.LENGTH_LONG).show();
             }
         });
     }

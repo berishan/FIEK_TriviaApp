@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">Trivia_app</string>
+    <string name="email">Email</string>
+    <string name="email_hint">Email Address…</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register">Sign In</string>
+    <string name="password_hint">Password…</string>
+    <string name="register_success">User registered successfully! We sent you an email to verify your account.</string>
+    <string name="register_fai">Failed to register user!</string>
+    <string name="register_fail_uc">Email is already in use!</string>
+    <string name="email_required">Email is required!</string>
+    <string name="password_required">Password is required!</string>
+    <string name="email_valid">Email should be valid!</string>
+    <string name="name_required">Name is required!</string>
+    <string name="lastname_required">Last name is required!</string>
+    <string name="login_fail">Wrong credentials!</string>
+    <string name="login_fail_verify">You have to verify your account before login in.</string>
+    <string name="register_form_title">Register Form</string>
+    <string name="name">Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="register_button">Register</string>
+    <string name="forgot_password_title">RESET PASSWORD</string>
+    <string name="enter_email">Enter your email here:</string>
+    <string name="reset_password_button">Reset</string>
+    <string name="reset_pw_email">We\'ve sent you an email for password reseting</string>
+    <string name="smth_wrong">Something went wrong! Try again later.</string>
 </resources>
