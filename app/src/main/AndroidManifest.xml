@@ -10,8 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Trivia_app">
         <activity android:name=".ResetPasswordActivity"></activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".RegisterActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".LoginActivity"
+                android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

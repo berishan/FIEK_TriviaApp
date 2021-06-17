@@ -7,6 +7,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etName, etLastName, etEmail, etPassword;
     private Button btnRegister;
+    private ProgressBar progressBar1;
     private FirebaseAuth mAuth;
 
 
@@ -30,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnRegister = findViewById(R.id.btnRegister);
+        progressBar1 = findViewById(R.id.progressBar1);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public void registerUser() {
+        progressBar1.setVisibility(View.VISIBLE);
         String name = etName.getEditableText().toString().trim();
         String lastName = etLastName.getEditableText().toString().trim();
         String email = etEmail.getEditableText().toString().trim();
@@ -90,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (task1.isSuccessful()) {
                         Toast.makeText(RegisterActivity.this, getString(R.string.register_success), Toast.LENGTH_LONG).show();
                         mAuth.getCurrentUser().sendEmailVerification();
+                        progressBar1.setVisibility(View.GONE);
                     } else
                     {
                         Toast.makeText(RegisterActivity.this, getString(R.string.register_fai), Toast.LENGTH_LONG).show();
