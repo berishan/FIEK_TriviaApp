@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.Trivia_app" parent="Theme.AppCompat">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/cardview_light_background</item>
-        <item name="colorPrimaryVariant">@color/cardview_light_background</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">#5678DC</item>
+        <item name="colorPrimaryVariant">#074B78</item>
+        <item name="colorOnPrimary">@color/purple_200</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/white</item>
         <item name="colorSecondaryVariant">@color/white</item>

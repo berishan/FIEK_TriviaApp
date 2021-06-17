@@ -26,4 +26,6 @@
     <string name="reset_password_button">Reset</string>
     <string name="reset_pw_email">We\'ve sent you an email for password reseting</string>
     <string name="smth_wrong">Something went wrong! Try again later.</string>
+    <string name="logout">Logout</string>
+    <string name="create_a_quiz">Create a quiz</string>
 </resources>
