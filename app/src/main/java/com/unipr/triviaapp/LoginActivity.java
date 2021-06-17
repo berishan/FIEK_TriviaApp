@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity{
                     Toast.makeText(this.getApplicationContext(), getString(R.string.login_fail_verify), Toast.LENGTH_LONG).show();
                 }
                 else {
-                    // TODO LoginUser
+                    startActivity(new Intent(this.getApplicationContext(), CoreActivity.class));
                 }
             } else {
                 Toast.makeText(this.getApplicationContext(), getString(R.string.login_fail), Toast.LENGTH_LONG).show();
