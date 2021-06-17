@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity{
     private EditText etEmail, etPassword;
     private TextView twRegister, twForgotPassword;
     private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +35,15 @@ public class LoginActivity extends AppCompatActivity{
         twRegister = findViewById(R.id.twRegister);
         btnLogin = findViewById(R.id.btnLogin);
         twForgotPassword = findViewById(R.id.twForgotPassword);
+        progressBar = findViewById(R.id.progressBar2);
+
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
+
             }
         });
 
@@ -55,6 +61,11 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        moveTaskToBack(true);
     }
 
 
@@ -81,19 +92,27 @@ public class LoginActivity extends AppCompatActivity{
         }
         // TODO passwordValidation
 
+        progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task ->
         {
+
             if (task.isSuccessful()) {
                 FirebaseUser user = mAuth.getCurrentUser();
                 if(!user.isEmailVerified()){
                     Toast.makeText(this.getApplicationContext(), getString(R.string.login_fail_verify), Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
                 }
                 else {
                     startActivity(new Intent(this.getApplicationContext(), CoreActivity.class));
+
                 }
+
             } else {
                 Toast.makeText(this.getApplicationContext(), getString(R.string.login_fail), Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
             }
+
         });
+
     }
 }
