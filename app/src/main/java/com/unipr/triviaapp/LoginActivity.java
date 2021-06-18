@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity{
     private Button btnLogin;
     private EditText etEmail, etPassword;
     private TextView twRegister, twForgotPassword;
+    private CheckBox cbRememberMe;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
 
@@ -36,7 +38,7 @@ public class LoginActivity extends AppCompatActivity{
         btnLogin = findViewById(R.id.btnLogin);
         twForgotPassword = findViewById(R.id.twForgotPassword);
         progressBar = findViewById(R.id.progressBar2);
-
+        cbRememberMe = findViewById(R.id.cbRememberMe);
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {

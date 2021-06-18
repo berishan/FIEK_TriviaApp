@@ -2,12 +2,14 @@ package com.unipr.triviaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +19,7 @@ import com.unipr.triviaapp.entities.User;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etName, etLastName, etEmail, etPassword;
+    private TextView twLogin;
     private Button btnRegister;
     private ProgressBar progressBar1;
     private FirebaseAuth mAuth;
@@ -33,10 +36,19 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnRegister = findViewById(R.id.btnRegister);
         progressBar1 = findViewById(R.id.progressBar1);
+        twLogin = findViewById(R.id.twLogin);
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registerUser();
+            }
+        });
+
+        twLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             }
         });
 
@@ -46,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public void registerUser() {
-        progressBar1.setVisibility(View.VISIBLE);
+
         String name = etName.getEditableText().toString().trim();
         String lastName = etLastName.getEditableText().toString().trim();
         String email = etEmail.getEditableText().toString().trim();
@@ -83,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
 //            etPassword.requestFocus();
 //            return;
 //        }
-
+        progressBar1.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 User user = new User(name, lastName, email);
@@ -98,11 +110,14 @@ public class RegisterActivity extends AppCompatActivity {
                     } else
                     {
                         Toast.makeText(RegisterActivity.this, getString(R.string.register_fai), Toast.LENGTH_LONG).show();
+                        progressBar1.setVisibility(View.GONE);
+
                     }
                 });
             } else
             {
                 Toast.makeText(RegisterActivity.this, getString(R.string.register_fail_uc), Toast.LENGTH_LONG).show();
+                progressBar1.setVisibility(View.GONE);
             }
         });
 

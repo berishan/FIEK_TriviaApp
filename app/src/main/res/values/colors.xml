@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellowLight">#FFC22F</color>
+    <color name="strokeColor">#d7f2bc</color>
+    <color name="fillColor">#cfe3f4</color>
 </resources>

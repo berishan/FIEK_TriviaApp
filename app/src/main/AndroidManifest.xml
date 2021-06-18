@@ -13,10 +13,11 @@
         <activity android:name=".ResetPasswordActivity" />
         <activity
             android:name=".RegisterActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
