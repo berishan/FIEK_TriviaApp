@@ -10,21 +10,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Trivia_app">
         <activity android:name=".CoreActivity"></activity>
-        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".ResetPasswordActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".RegisterActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="sensorPortrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

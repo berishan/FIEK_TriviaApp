@@ -8,50 +8,52 @@
     android:background="@drawable/gradient2">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iwLogo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="250dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
         android:src="@drawable/logo"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/twAppName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"></ImageView>
+        app:layout_constraintVertical_bias="0.6" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/twAppName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/freshman_font"
+        android:fontFamily="@font/orange_juice"
         android:gravity="center_horizontal"
-        android:text="FIEK TriviaApp"
+        android:text="@string/fiek_triviaapp"
         android:textAlignment="center"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/twAppSlogan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/iwLogo" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/twAppSlogan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/freshman_font"
+
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/antic"
         android:gravity="center_horizontal"
-        android:text="Test your knowledge"
+        android:text="@string/test_your_knowledge"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/twAppName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

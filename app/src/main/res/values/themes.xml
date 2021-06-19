@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Trivia_app" parent="Theme.AppCompat">
+    <style name="Theme.Trivia_app" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#5678DC</item>
         <item name="colorPrimaryVariant">#074B78</item>
