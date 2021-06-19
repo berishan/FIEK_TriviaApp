@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".QuestionActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvQuestion"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="22sp"
+                android:text="What's my name?"/>
+            <ImageView
+                android:id="@+id/ivImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/common_google_signin_btn_icon_dark_normal"/>
+            <LinearLayout
+                android:id="@+id/llProgressDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:max="10"
+                    android:minHeight="50dp"
+                    android:indeterminate="false"
+                    android:progress="4"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvProgress"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:textColorHint="#7A8089"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="14sp"
+                    android:text="0/10"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvOptionOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/default_option_bg"
+                android:gravity="center"
+                android:padding="15dp"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="18sp"
+                android:text="Jeff"/>
+            <TextView
+                android:id="@+id/tvOptionTwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/default_option_bg"
+                android:gravity="center"
+                android:padding="15dp"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="18sp"
+                android:text="Heisenberg"/>
+            <TextView
+                android:id="@+id/tvOptionThree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/default_option_bg"
+                android:gravity="center"
+                android:padding="15dp"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="18sp"
+                android:text="Chicka Chicka Slim Shady"/>
+            <TextView
+                android:id="@+id/tvOptionFour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/default_option_bg"
+                android:gravity="center"
+                android:padding="15dp"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="18sp"
+                android:text="Deez "/>
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/purple_200"
+                android:text="SUBMIT"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</ScrollView>
