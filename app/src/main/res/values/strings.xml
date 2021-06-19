@@ -37,4 +37,18 @@
     <string name="cancel">Cancel</string>
     <string name="fiek_triviaapp">FIEK TriviaApp</string>
     <string name="test_your_knowledge">Test your knowledge</string>
+    <string-array name="categories">
+        <item>General Knowledge</item>
+        <item>Sports</item>
+        <item>History</item>
+        <item>Geography</item>
+        <item>Science: Computers</item>
+        <item>Art</item>
+    </string-array>
+    <string-array name="difficulty">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+    <string name="number_of_questions_required">Number of questions required!</string>
 </resources>

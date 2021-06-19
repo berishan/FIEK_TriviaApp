@@ -9,28 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Trivia_app">
-        <activity android:name=".CoreActivity"
-            android:theme="@style/Theme.ActionBar"></activity>
-        <activity android:name=".ResetPasswordActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".testActivity"></activity>
+        <activity
+            android:name=".CoreActivity"
+            android:theme="@style/Theme.ActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".RegisterActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="sensorPortrait"/>
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="sensorPortrait">
-
-        </activity>
-        <activity android:name=".MainActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".MainActivity"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

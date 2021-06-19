@@ -2,11 +2,20 @@ package com.unipr.triviaapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.unipr.triviaapp.adapters.ResultAdapter;
+import com.unipr.triviaapp.entities.Result;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +23,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class HistoryFragment extends Fragment {
+
+    ListView resultsListView;
+    ResultAdapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +72,20 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_history, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        resultsListView = (ListView) getView().findViewById(R.id.resultsListView);
+
+        List<Result> resultList = new ArrayList<>();
+
+        adapter = new ResultAdapter(this.getContext());
+        resultsListView.setAdapter(adapter);
+
+        adapter.getResultList().add(new Result(1, "Rinor Ahmeti", 10, 9, 6900, "09/09/2021"));
+        adapter.getResultList().add(new Result(2, "Nora Ahmeti", 10, 10, 10000, "09/09/2021"));
+        adapter.getResultList().add(new Result(3, "Musa Ahmeti", 5, 5, 5000, "09/09/2021"));
+        adapter.notifyDataSetChanged();
     }
 }

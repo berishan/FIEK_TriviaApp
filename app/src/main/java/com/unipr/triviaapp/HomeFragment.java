@@ -1,19 +1,36 @@
 package com.unipr.triviaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment{
+
+    Spinner categoriesSpinner;
+    Spinner difficultySpinner;
+    EditText numberOfQuestionsEt;
+    Button startQuizButton;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,9 +73,51 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        categoriesSpinner = (Spinner) getView().findViewById(R.id.category_spinner);
+        difficultySpinner = (Spinner) getView().findViewById(R.id.difficulty_spinner);
+        numberOfQuestionsEt = (EditText) getView().findViewById(R.id.etNumOfQuestions);
+        startQuizButton = (Button) getView().findViewById(R.id.btnStartQuiz);
+
+
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(getContext(), R.array.categories, android.R.layout.simple_spinner_dropdown_item);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoriesSpinner.setAdapter(categoryAdapter);
+
+        ArrayAdapter<CharSequence> difficultyAdapter = ArrayAdapter.createFromResource(getContext(), R.array.difficulty, android.R.layout.simple_spinner_dropdown_item);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        difficultySpinner.setAdapter(difficultyAdapter);
+
+        startQuizButton.setOnClickListener( e-> {
+            startQuiz();
+        });
+
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
+
+    public void startQuiz() {
+        Integer numberOfQuestions;
+        try {
+            numberOfQuestions = Integer.parseInt(numberOfQuestionsEt.getEditableText().toString().trim());
+            if (numberOfQuestions > 10 || numberOfQuestions < 1) {
+                numberOfQuestionsEt.setError("The number of questions must be between 1 and 10");
+                numberOfQuestionsEt.requestFocus();
+                return;
+            }
+        } catch (Exception e) {
+            numberOfQuestionsEt.setError("Please provide a number!");
+            numberOfQuestionsEt.requestFocus();
+        }
+
+         startActivity(new Intent(this.getContext(), testActivity.class));
+
+    }
+
 }
