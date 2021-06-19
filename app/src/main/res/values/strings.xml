@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trivia_app</string>
+    <string name="app_name">Trivia App</string>
     <string name="email">Email</string>
     <string name="email_hint">Email Address…</string>
     <string name="password">Password</string>
