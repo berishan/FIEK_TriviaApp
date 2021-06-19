@@ -7,30 +7,33 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Trivia_app">
-        <activity android:name=".CoreActivity"
-            android:theme="@style/Theme.ActionBar"></activity>
-        <activity android:name=".ResetPasswordActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="sensorPortrait"/>
+        android:screenOrientation="sensorPortrait"
+        android:theme="@style/Theme.Trivia_app2"
+        android:supportsRtl="true">
+        <activity android:name=".ResultActivity" />
+        <activity
+            android:name=".QuestionActivity"
+            android:theme="@style/Theme.Trivia_app2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CoreActivity"
+            android:theme="@style/Theme.ActionBar" />
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".RegisterActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="sensorPortrait"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="sensorPortrait">
-
-        </activity>
-        <activity android:name=".MainActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

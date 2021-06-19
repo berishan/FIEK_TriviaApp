@@ -1,6 +1,20 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Trivia_app" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Trivia_app" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#5678DC</item>
+        <item name="colorPrimaryVariant">#074B78</item>
+        <item name="colorOnPrimary">@color/purple_200</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#5678DC</item>
+        <item name="colorSecondaryVariant">#074B78</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.Trivia_app2" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#5678DC</item>
         <item name="colorPrimaryVariant">#074B78</item>
