@@ -66,12 +66,18 @@ public class ResultAdapter extends BaseAdapter {
         } else {
             viewHolder = (ResultsViewHolder) convertView.getTag();
         }
+        viewHolder.getCategory().setText("Category: " + resultList.get(position).getCategory());
+        viewHolder.getDifficulty().setText("Difficulty: " + resultList.get(position).getDifficulty());
+        viewHolder.getScore().setText("Score: " + resultList.get(position).getTotalPoints());
+        viewHolder.getQuestions().setText("Questions: " + resultList.get(position).getCorrectAnswers() + "/" + resultList.get(position).getNumberOfQuestions());
+        viewHolder.getDateTaken().setText("Date: " + resultList.get(position).getDate());
 
-        viewHolder.getUsersEmail().setText("User:" + resultList.get(position).getUser());
-        viewHolder.getCorrectAnswers().setText("Correct answers:" + resultList.get(position).getCorrectAnswers());
-        viewHolder.getNumberOfPoints().setText("Number of points:" + resultList.get(position).getTotalPoints());
-//        viewHolder.getNumberOfQuestions().setText("Number of questions:" + resultList.get(position).getNumberOfQuestions());
-        viewHolder.getDateTaken().setText("Date taken:" + resultList.get(position).getDate());
+
+//        viewHolder.getUsersEmail().setText("User:" + resultList.get(position).getUser());
+//        viewHolder.getCorrectAnswers().setText("Correct answers:" + resultList.get(position).getCorrectAnswers());
+//        viewHolder.getNumberOfPoints().setText("Number of points:" + resultList.get(position).getTotalPoints());
+////        viewHolder.getNumberOfQuestions().setText("Number of questions:" + resultList.get(position).getNumberOfQuestions());
+//        viewHolder.getDateTaken().setText("Date taken:" + resultList.get(position).getDate());
 
 
 //        viewHolder.getCorrectAnswers().setText(resultList.get(position)

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ResetPasswordActivity extends AppCompatActivity {
@@ -59,9 +61,13 @@ public class ResetPasswordActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         if(email.isEmpty()){
             etEmail.setError(getString(R.string.email_required));
+            etEmail.requestFocus();
+            return;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             etEmail.setError(getString(R.string.email_valid));
+            etEmail.requestFocus();
+            return;
         }
          // TODO progressBar
         progressBar.setVisibility(View.VISIBLE);

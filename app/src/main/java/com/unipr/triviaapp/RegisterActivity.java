@@ -116,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             } else
             {
-                Toast.makeText(RegisterActivity.this, getString(R.string.register_fail_uc), Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 progressBar1.setVisibility(View.GONE);
             }
         });
