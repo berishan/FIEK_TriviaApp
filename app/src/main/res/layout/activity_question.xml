@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient2"
     android:fillViewport="true"
     tools:context=".QuestionActivity">
 
@@ -13,9 +12,20 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="00:00"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvCountdown"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="22sp"/>
 
             <TextView
                 android:layout_width="match_parent"
+                android:text="TEST"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvQuestion"
                 android:layout_margin="10dp"
