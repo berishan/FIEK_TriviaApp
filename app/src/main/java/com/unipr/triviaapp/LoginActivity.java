@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity{
                 }
 
             } else {
-                Toast.makeText(this.getApplicationContext(), getString(R.string.login_fail), Toast.LENGTH_LONG).show();
+                Toast.makeText(this.getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
             }
 
