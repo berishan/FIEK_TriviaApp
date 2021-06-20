@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.unipr.triviaapp.entities.User;
+import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -107,6 +108,9 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, getString(R.string.register_success), Toast.LENGTH_LONG).show();
                         mAuth.getCurrentUser().sendEmailVerification();
                         progressBar1.setVisibility(View.GONE);
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        intent.putExtra(ExtrasHelper.EMAIL, user.getEmail());
+                        startActivity(intent);
                     } else
                     {
                         Toast.makeText(RegisterActivity.this, getString(R.string.register_fai), Toast.LENGTH_LONG).show();

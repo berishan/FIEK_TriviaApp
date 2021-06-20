@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 import java.util.regex.Pattern;
 
@@ -39,7 +40,10 @@ public class LoginActivity extends AppCompatActivity{
         twForgotPassword = findViewById(R.id.twForgotPassword);
         progressBar = findViewById(R.id.progressBar2);
 
-
+        String email = getIntent().getStringExtra(ExtrasHelper.EMAIL);
+        if(email != null){
+            etEmail.setText(email);
+        }
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +111,6 @@ public class LoginActivity extends AppCompatActivity{
                 }
                 else {
                     startActivity(new Intent(this.getApplicationContext(), CoreActivity.class));
-
                 }
 
             } else {

@@ -9,14 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Trivia_app2">
-        <activity android:name=".testActivity"></activity>
+        <activity android:name=".testActivity" />
               <activity android:name=".ResultActivity" />
         <activity
             android:name=".QuestionActivity">
-        </activity>
-        <activity
-            android:name=".CoreActivity"
-            android:theme="@style/Theme.ActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,17 +20,21 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".CoreActivity"
+            android:theme="@style/Theme.ActionBar">
+        </activity>
+        <activity
             android:name=".ResetPasswordActivity"
             android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".RegisterActivity"
             android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".MainActivity"></activity>
 
         <meta-data

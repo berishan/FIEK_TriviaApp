@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -30,7 +31,7 @@ public class QuestionActivity extends AppCompatActivity  {
     private ProgressBar progressBar;
     private TextView tvProgressText, tvQuestion;
     private TextView tvOptionOne, tvOptionTwo, tvOptionThree, tvOptionFour;
-    private Button btnSubmit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class QuestionActivity extends AppCompatActivity  {
         tvOptionTwo = findViewById(R.id.tvOptionTwo);
         tvOptionThree = findViewById(R.id.tvOptionThree);
         tvOptionFour = findViewById(R.id.tvOptionFour);
-        btnSubmit = findViewById(R.id.btnSubmit);
+
 
         mUserName = "getIntent().getStringExtra(\"USERNAME\");";
         mQuestionsList = QuestionClient.getQuestions(0,0);
@@ -54,78 +55,92 @@ public class QuestionActivity extends AppCompatActivity  {
         tvOptionOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mSelectedOption = 1;
+                validateAnswer();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        changeQuestion();
+                    }
+                }, 1000);
 
-                selectedOptionView((TextView) v, 1);
             }
         });
 
         tvOptionTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedOptionView((TextView) v, 2);
+                mSelectedOption = 2;
+                validateAnswer();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        changeQuestion();
+                    }
+                }, 1000);
             }
         });
 
         tvOptionThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedOptionView((TextView) v, 3);
+                mSelectedOption = 3;
+                validateAnswer();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        changeQuestion();
+                    }
+                }, 1000);
+
             }
         });
 
         tvOptionFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedOptionView((TextView) v, 4);
-            }
-        });
-
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mSelectedOption == 0) {
-                    mCurrentPosition++;
-                    if (mCurrentPosition <= mQuestionsList.size()) {
-                        setQuestion();
-                    } else {
-                        Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
-                        intent.putExtra("USERNAME", mUserName);
-                        intent.putExtra("CORRECTANSWERS", mCorrectAnswers);
-                        intent.putExtra("TOTALQUESTIONS", mQuestionsList.size());
-                        startActivity(intent);
-                        finish();
+                mSelectedOption = 4;
+                validateAnswer();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        changeQuestion();
                     }
-                } else {
-                    Question question = mQuestionsList.get(mCurrentPosition - 1);
-                    if(question.getCorrectAnswer() != mSelectedOption){
-                        answerView(mSelectedOption, R.drawable.wrong_option_bg);
-                    } else {
-                        mCorrectAnswers++;
-                    }
-                    answerView(question.getCorrectAnswer(), R.drawable.correct_option_bg);
-                    if(mCurrentPosition == mQuestionsList.size()){
-                        btnSubmit.setText("FINISH");
-                    } else {
-                        btnSubmit.setText("NEXT QUESTION ");
-                    }
-                    mSelectedOption = 0;
-                }
-
+                }, 1000);
 
             }
         });
-
 
     }
+
+    private void validateAnswer(){
+            Question question = mQuestionsList.get(mCurrentPosition - 1);
+            if(question.getCorrectAnswer() != mSelectedOption){
+                answerView(mSelectedOption, R.drawable.wrong_option_bg);
+            } else {
+                mCorrectAnswers++;
+            }
+            answerView(question.getCorrectAnswer(), R.drawable.correct_option_bg);
+            mCurrentPosition++;
+        }
+
+     private void changeQuestion(){
+        if (mCurrentPosition <= mQuestionsList.size()) {
+            setQuestion();
+        } else {
+            Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+            intent.putExtra("USERNAME", mUserName);
+            intent.putExtra("CORRECTANSWERS", mCorrectAnswers);
+            intent.putExtra("TOTALQUESTIONS", mQuestionsList.size());
+            startActivity(intent);
+            finish();
+        }
+     }
+
 
     private void setQuestion(){
         Question question =  mQuestionsList.get(mCurrentPosition- 1);
         defaultOptionsView();
-        if(mCurrentPosition == mQuestionsList.size()){
-            btnSubmit.setText("FINISH");
-        } else{
-            btnSubmit.setText("SUBMIT");
-        }
 
         progressBar.setProgress(mCurrentPosition);
         tvProgressText.setText(String.format(Locale.ITALIAN,"%d/%d", mCurrentPosition, progressBar.getMax()));
@@ -154,17 +169,6 @@ public class QuestionActivity extends AppCompatActivity  {
 
         }
 
-    }
-
-
-    private void selectedOptionView(TextView tv, int selectedOptionNumber){
-        defaultOptionsView();
-        mSelectedOption = selectedOptionNumber;
-        tv.setTextColor(Color.parseColor("#FF424242"));
-        tv.setTypeface(tv.getTypeface() ,Typeface.BOLD);
-        tv.setBackground(ContextCompat.getDrawable(
-                QuestionActivity.this,
-                R.drawable.selected_option_bg));
     }
 
     private void answerView(int answer, int drawableView){
