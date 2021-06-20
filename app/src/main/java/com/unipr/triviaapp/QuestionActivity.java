@@ -169,8 +169,8 @@ public class QuestionActivity extends AppCompatActivity  {
 
 
     private void setQuestion(){
-        startCountdown();
-        Question question =  mQuestionsList.get(mCurrentPosition- 1);
+          startCountdown();
+          Question question =  mQuestionsList.get(mCurrentPosition- 1);
         defaultOptionsView();
 
         progressBar.setProgress(mCurrentPosition);
@@ -242,7 +242,15 @@ public class QuestionActivity extends AppCompatActivity  {
             @Override
             public void onFinish() {
                 validateAnswer();
-                changeQuestion();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        timeLeftInMillis = 60000;
+                        startCountdown();
+                        changeQuestion();
+                    }
+                }, 2000);
+
             }
         }.start();
     }
@@ -267,7 +275,5 @@ public class QuestionActivity extends AppCompatActivity  {
         countDownTimer.cancel();
         mScore += mStreak*timeLeftInMillis/10000;
         timeLeftInMillis = 60000;
-
-
     }
 }
