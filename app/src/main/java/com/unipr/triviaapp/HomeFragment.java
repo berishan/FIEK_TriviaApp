@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.unipr.triviaapp.helpers.ExtrasHelper;
+
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -106,8 +109,8 @@ public class HomeFragment extends Fragment{
         Integer numberOfQuestions;
         try {
             numberOfQuestions = Integer.parseInt(numberOfQuestionsEt.getEditableText().toString().trim());
-            if (numberOfQuestions > 10 || numberOfQuestions < 1) {
-                numberOfQuestionsEt.setError("The number of questions must be between 1 and 10");
+            if (numberOfQuestions > 10 || numberOfQuestions < 5) {
+                numberOfQuestionsEt.setError("The number of questions must be between 5 and 10");
                 numberOfQuestionsEt.requestFocus();
                 return;
             }
@@ -117,7 +120,20 @@ public class HomeFragment extends Fragment{
             return;
         }
 
-         startActivity(new Intent(this.getContext(), testActivity.class));
+        String difficulty = difficultySpinner.getSelectedItem().toString();
+        String category = categoriesSpinner.getSelectedItem().toString();
+        numberOfQuestions = Integer.parseInt(numberOfQuestionsEt.getEditableText().toString());
+
+        // https://opentdb.com/api.php?amount=10&category=23&difficulty=medium&type=multiple
+
+        Intent i = new Intent(this.getContext(), QuestionActivity.class);
+
+        i.putExtra(ExtrasHelper.CATEGORY, category);
+        i.putExtra(ExtrasHelper.DIFFICULTY, difficulty);
+        i.putExtra(ExtrasHelper.TOTAL_QUESTIONS, numberOfQuestions);
+
+
+         startActivity(new Intent(this.getContext(), QuestionActivity.class));
 
     }
 

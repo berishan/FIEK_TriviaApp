@@ -53,11 +53,15 @@ public class QuestionActivity extends AppCompatActivity  {
         tvOptionFour = findViewById(R.id.tvOptionFour);
         tvCountdown = findViewById(R.id.tvCountdown);
 
+        String difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);
+        String category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
+        int numberOfQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS, 0);
+
         String seconds = "getIntent().getIntExtra(\"SECONDS\")";
         timeLeftInMillis = 60*1000;
 
         mUserName = "getIntent().getStringExtra(\"USERNAME\");";
-        mQuestionsList = QuestionClient.getQuestions(0,0);
+        mQuestionsList = QuestionClient.getQuestions(numberOfQuestions,category,difficulty);
 
         progressBar.setMax(mQuestionsList.size());
 
