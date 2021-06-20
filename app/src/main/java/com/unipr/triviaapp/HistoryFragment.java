@@ -83,9 +83,9 @@ public class HistoryFragment extends Fragment {
         adapter = new ResultAdapter(this.getContext());
         resultsListView.setAdapter(adapter);
 
-        adapter.getResultList().add(new Result(1, "Rinor Ahmeti", 10, 9, 6900, "09/09/2021"));
-        adapter.getResultList().add(new Result(2, "Nora Ahmeti", 10, 10, 10000, "09/09/2021"));
-        adapter.getResultList().add(new Result(3, "Musa Ahmeti", 5, 5, 5000, "09/09/2021"));
+        adapter.getResultList().add(new Result(1, "Rinor Ahmeti", "10", "9", "6900", "09/09/2021", "Easy", "Art"));
+        adapter.getResultList().add(new Result(2, "Nora Ahmeti", "10", "9", "10000", "09/09/2021", "Medium", "Sports"));
+        adapter.getResultList().add(new Result(3, "Musa Ahmeti", "5", "5", "5000", "09/09/2021", "Hard", "General Knowledge"));
         adapter.notifyDataSetChanged();
     }
 }

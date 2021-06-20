@@ -6,39 +6,9 @@ import android.widget.TextView;
 import com.unipr.triviaapp.R;
 
 public class ResultsViewHolder {
-    TextView usersEmail, correctAnswers, numberOfPoints, numberOfQuestions, dateTaken;
 
-    public TextView getUsersEmail() {
-        return usersEmail;
-    }
 
-    public void setUsersEmail(TextView usersEmail) {
-        this.usersEmail = usersEmail;
-    }
-
-    public TextView getCorrectAnswers() {
-        return correctAnswers;
-    }
-
-    public void setCorrectAnswers(TextView correctAnswers) {
-        this.correctAnswers = correctAnswers;
-    }
-
-    public TextView getNumberOfPoints() {
-        return numberOfPoints;
-    }
-
-    public void setNumberOfPoints(TextView numberOfPoints) {
-        this.numberOfPoints = numberOfPoints;
-    }
-
-    public TextView getNumberOfQuestions() {
-        return numberOfQuestions;
-    }
-
-    public void setNumberOfQuestions(TextView numberOfQuestions) {
-        this.numberOfQuestions = numberOfQuestions;
-    }
+    TextView dateTaken, score, category, difficulty, questions;
 
     public TextView getDateTaken() {
         return dateTaken;
@@ -48,11 +18,43 @@ public class ResultsViewHolder {
         this.dateTaken = dateTaken;
     }
 
+    public TextView getScore() {
+        return score;
+    }
+
+    public void setScore(TextView score) {
+        this.score = score;
+    }
+
+    public TextView getCategory() {
+        return category;
+    }
+
+    public void setCategory(TextView category) {
+        this.category = category;
+    }
+
+    public TextView getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(TextView difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public TextView getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(TextView questions) {
+        this.questions = questions;
+    }
+
     public ResultsViewHolder(View view) {
-        usersEmail = view.findViewById(R.id.tvUser);
-        correctAnswers = view.findViewById(R.id.tvCorrectAnswers);
-        numberOfPoints = view.findViewById(R.id.tvNumberOfPoints);
-        numberOfQuestions = view.findViewById(R.id.etNumOfQuestions);
-        dateTaken = view.findViewById(R.id.dateTakenTv);
+        score = view.findViewById(R.id.scoresTv);
+        difficulty = view.findViewById(R.id.tvDifficulty);
+        questions = view.findViewById(R.id.questionsTv);
+        category = view.findViewById(R.id.tvCategory);
+        dateTaken = view.findViewById(R.id.tvDateTaken);
     }
 }

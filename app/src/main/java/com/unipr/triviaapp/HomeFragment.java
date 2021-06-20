@@ -114,6 +114,7 @@ public class HomeFragment extends Fragment{
         } catch (Exception e) {
             numberOfQuestionsEt.setError("Please provide a number!");
             numberOfQuestionsEt.requestFocus();
+            return;
         }
 
          startActivity(new Intent(this.getContext(), testActivity.class));

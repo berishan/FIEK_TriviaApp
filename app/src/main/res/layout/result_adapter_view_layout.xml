@@ -7,41 +7,43 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/tvUser"/>
+        android:text="Date taken"
+        android:textStyle="bold"
+        android:id="@+id/tvDateTaken"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/tvCorrectAnswers"
-        android:layout_below="@id/tvUser"/>
+        android:text="Difficulty"
+        android:textStyle="bold"
+        android:id="@+id/tvDifficulty"
+        android:layout_below="@id/tvDateTaken"/>
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/tvTotalQuestions"
-        android:layout_toRightOf="@id/tvCorrectAnswers"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="145dp"
-        android:layout_below="@id/tvUser"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/tvNumberOfPoints"
-        android:layout_below="@id/tvCorrectAnswers"/>
+        android:text="Category"
+        android:textStyle="bold"
+        android:id="@+id/tvCategory"
+        android:layout_below="@id/tvDifficulty"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvCorrectAnswers"
-        android:layout_toRightOf="@id/tvNumberOfPoints"
-        android:layout_marginLeft="120dp"
-        android:id="@+id/dateTakenTv"
-        android:text=""/>
+        android:layout_below="@id/tvCategory"
+        android:text="Questions"
+        android:textStyle="bold"
+        android:id="@+id/questionsTv"
+       />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/questionsTv"
+        android:textStyle="bold"
+        android:text="Score"
+        android:id="@+id/scoresTv"/>
 
 
 </RelativeLayout>
