@@ -32,7 +32,7 @@ public class QuestionActivity extends AppCompatActivity  {
     private int mCorrectAnswers = 0;
 
     private int mScore = 0;
-    private int mStreak = 0;
+    private int mStreak = 1;
     private String mUserName = null;
 
     private ProgressBar progressBar;
@@ -141,11 +141,11 @@ public class QuestionActivity extends AppCompatActivity  {
             Question question = mQuestionsList.get(mCurrentPosition - 1);
             if(question.getCorrectAnswer() != mSelectedOption){
                 answerView(mSelectedOption, R.drawable.wrong_option_bg);
-                mStreak = 0;
+                mStreak = 1;
             } else {
                 mCorrectAnswers++;
+                mScore += 150;
                 mStreak++;
-                mScore = mScore + 100*mStreak;
             }
             answerView(question.getCorrectAnswer(), R.drawable.correct_option_bg);
             mCurrentPosition++;
@@ -265,7 +265,7 @@ public class QuestionActivity extends AppCompatActivity  {
 
     private void stopCountdown(){
         countDownTimer.cancel();
-        mScore += timeLeftInMillis/10000;
+        mScore += mStreak*timeLeftInMillis/10000;
         timeLeftInMillis = 60000;
 
 
