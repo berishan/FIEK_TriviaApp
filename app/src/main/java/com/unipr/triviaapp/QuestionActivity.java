@@ -9,25 +9,42 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.unipr.triviaapp.clients.QuestionClient;
+import com.unipr.triviaapp.entities.ApiResult;
 import com.unipr.triviaapp.entities.Question;
+import com.unipr.triviaapp.entities.QuestionApiEntity;
+import com.unipr.triviaapp.entities.mappers.QuestionMapper;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class QuestionActivity extends AppCompatActivity  {
 
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
     private int mCurrentPosition = 1;
-    private ArrayList<Question> mQuestionsList = null;
+    private ArrayList<Question> mQuestionsList = new ArrayList<>();
     private int mSelectedOption = 0;
     private int mCorrectAnswers = 0;
 
@@ -61,7 +78,12 @@ public class QuestionActivity extends AppCompatActivity  {
         timeLeftInMillis = 60*1000;
 
         mUserName = "getIntent().getStringExtra(\"USERNAME\");";
-        mQuestionsList = QuestionClient.getQuestions(numberOfQuestions,category,difficulty);
+        QuestionClient.getQuestions(numberOfQuestions,category,difficulty, mQuestionsList);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         progressBar.setMax(mQuestionsList.size());
 
@@ -280,4 +302,11 @@ public class QuestionActivity extends AppCompatActivity  {
         mScore += mStreak*timeLeftInMillis/10000;
         timeLeftInMillis = 60000;
     }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 }

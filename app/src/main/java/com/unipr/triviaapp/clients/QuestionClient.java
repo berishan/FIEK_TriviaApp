@@ -1,7 +1,12 @@
 package com.unipr.triviaapp.clients;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -9,6 +14,7 @@ import com.unipr.triviaapp.QuestionActivity;
 import com.unipr.triviaapp.entities.ApiResult;
 import com.unipr.triviaapp.entities.Question;
 import com.unipr.triviaapp.entities.QuestionApiEntity;
+import com.unipr.triviaapp.entities.mappers.QuestionMapper;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -40,50 +46,7 @@ public class QuestionClient {
 
 
 
-    public static Question apiResultToQuestionMapper(ApiResult apiResult) {
-
-
-        //random.nextInt(max - min + 1) + min
-
-        Question question = new Question();
-        question.setQuestion(apiResult.getQuestion());
-        int rand = (int)(1 + (Math.random() * 4));
-
-        switch (rand) {
-            case 1:
-                question.setOptionOne(apiResult.getCorrect_answer());
-                question.setCorrectAnswer(1);
-                question.setOptionTwo(apiResult.getIncorrect_answers().get(0));
-                question.setOptionThree(apiResult.getIncorrect_answers().get(1));
-                question.setOptionFour(apiResult.getIncorrect_answers().get(2));
-                break;
-            case 2:
-                question.setOptionTwo(apiResult.getCorrect_answer());
-                question.setCorrectAnswer(2);
-                question.setOptionOne(apiResult.getIncorrect_answers().get(0));
-                question.setOptionThree(apiResult.getIncorrect_answers().get(1));
-                question.setOptionFour(apiResult.getIncorrect_answers().get(2));
-                break;
-            case 3:
-                question.setOptionThree(apiResult.getCorrect_answer());
-                question.setCorrectAnswer(3);
-                question.setOptionOne(apiResult.getIncorrect_answers().get(0));
-                question.setOptionTwo(apiResult.getIncorrect_answers().get(1));
-                question.setOptionFour(apiResult.getIncorrect_answers().get(2));
-                break;
-            case 4:
-                question.setOptionFour(apiResult.getCorrect_answer());
-                question.setCorrectAnswer(4);
-                question.setOptionOne(apiResult.getIncorrect_answers().get(0));
-                question.setOptionThree(apiResult.getIncorrect_answers().get(1));
-                question.setOptionTwo(apiResult.getIncorrect_answers().get(2));
-                break;
-        }
-
-        return question;
-    }
-
-    public static ArrayList<Question> getQuestions(int amount, String category, String difficulty){
+    public static void getQuestions(int amount, String category, String difficulty, ArrayList<Question> questionsArrayList){
 
         categoryMap.put("General Knowledge", 9);
         categoryMap.put("Sports", 21);
@@ -92,49 +55,56 @@ public class QuestionClient {
         categoryMap.put("Science: Computers", 18);
         categoryMap.put("Art", 25);
 
-        String apiURL = String.format(baseURL, amount, categoryMap.get(category), difficulty);
+        String apiURL = String.format(baseURL, 10, categoryMap.get("Sports"
+        ), "medium");
 
-        getData(apiURL);
+        getData(apiURL,  questionsArrayList);
+        Log.println(Log.INFO, "Test", apiURL);
 
-        ArrayList<Question> arrayList = new ArrayList();
-
-        for (ApiResult apiResult : list) {
-            arrayList.add(apiResultToQuestionMapper(apiResult));
-        }
-
-        return arrayList;
     }
 
-    public static void getData(String url) {
+    public static void getData(String url, ArrayList<Question> questionArrayList) {
 
         Request request = new Request.Builder()
                 .url(url)
                 .get()
                 .build();
+        Log.println(Log.INFO, "Test 76", request.toString());
 
         client.newCall(request).enqueue(new Callback() {
+
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
                 call.cancel();
                 list = new ArrayList<>();
                 list.add(new ApiResult());
+                Log.println(Log.INFO, "Test 84", request.toString());
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                Log.println(Log.INFO, "Test 89", request.toString());
                 if (response.isSuccessful()) {
                     String res = response.body().string();
+                    Log.println(Log.INFO, "Test 92", request.toString());
                     Gson gsonParser = new Gson();
                     QuestionApiEntity questionApiEntity = gsonParser.fromJson(res, QuestionApiEntity.class);
                     list = questionApiEntity.getResults();
+                    for(ApiResult member: list){
+                        questionArrayList.add(QuestionMapper.mapApiResultToQuestion(member));
+                    }
                 } else {
                     call.cancel();
+                    Log.println(Log.INFO, "Test 99", request.toString());
 
                 }
             }
         });
     }
 }
+
+
 // arrayList.add(new Question(
 //                1,
 //                "What's my name?",
