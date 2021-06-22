@@ -94,7 +94,7 @@ public class HistoryFragment extends Fragment {
     private List<Result> getResults(){
         List<Result> results = new ArrayList<>();
         SQLiteDatabase database = new DatabaseHelper(this.getContext()).getReadableDatabase();
-        Cursor cursor = database.rawQuery(Queries.GET_RESULTS, null);
+        Cursor cursor = database.rawQuery(Queries.GET_RESULTS, new String[] {});
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
             results.add(new Result(

@@ -44,6 +44,8 @@ public class HomeFragment extends Fragment{
     private String mParam1;
     private String mParam2;
 
+    private String name;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -57,14 +59,13 @@ public class HomeFragment extends Fragment{
      * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static HomeFragment newInstance(String name) {
+//        HomeFragment fragment = new HomeFragment();
+//        Bundle args = new Bundle();
+////        args.putString(ExtrasHelper.FULL_NAME,name);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,11 +74,20 @@ public class HomeFragment extends Fragment{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Bundle bundle = getArguments();
+
+        String email;
+
+        if (this.getArguments() == null) {
+            email = "mut";
+        } else {
+            email = this.getArguments().getString(ExtrasHelper.EMAIL);
+        }
+
 
         categoriesSpinner = (Spinner) getView().findViewById(R.id.category_spinner);
         difficultySpinner = (Spinner) getView().findViewById(R.id.difficulty_spinner);
@@ -94,7 +104,7 @@ public class HomeFragment extends Fragment{
         difficultySpinner.setAdapter(difficultyAdapter);
 
         startQuizButton.setOnClickListener( e-> {
-            startQuiz();
+            startQuiz(email);
         });
 
 
@@ -107,11 +117,11 @@ public class HomeFragment extends Fragment{
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-    public void startQuiz() {
+    public void startQuiz(String email) {
         Integer numberOfQuestions;
         try {
             numberOfQuestions = Integer.parseInt(numberOfQuestionsEt.getEditableText().toString().trim());
-            if (numberOfQuestions > 10 || numberOfQuestions < 5) {
+            if (numberOfQuestions > 10 || numberOfQuestions < 1) {
                 numberOfQuestionsEt.setError("The number of questions must be between 5 and 10");
                 numberOfQuestionsEt.requestFocus();
                 return;
@@ -129,8 +139,8 @@ public class HomeFragment extends Fragment{
         // https://opentdb.com/api.php?amount=10&category=23&difficulty=medium&type=multiple
 
         Intent intent = new Intent(this.getContext(), QuestionActivity.class);
-
-        intent.putExtra(ExtrasHelper.FULL_NAME, "Rinor");
+        // TODO ndreqe qita
+        intent.putExtra(ExtrasHelper.FULL_NAME, email);
         intent.putExtra(ExtrasHelper.CATEGORY, category);
         intent.putExtra(ExtrasHelper.DIFFICULTY, difficulty);
         intent.putExtra(ExtrasHelper.TOTAL_QUESTIONS, numberOfQuestions);

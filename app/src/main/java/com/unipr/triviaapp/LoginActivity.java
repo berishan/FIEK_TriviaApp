@@ -14,8 +14,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 import java.util.regex.Pattern;
@@ -112,7 +115,7 @@ public class LoginActivity extends AppCompatActivity{
                 else {
                     Intent intent = new Intent(this.getApplicationContext(), CoreActivity.class);
                     intent.putExtra(ExtrasHelper.EMAIL, user.getEmail());
-                    intent.putExtra(ExtrasHelper.FULL_NAME, user.getDisplayName());
+                    intent.putExtra(ExtrasHelper.FULL_NAME,"TEST");
                     startActivity(intent);
                 }
 

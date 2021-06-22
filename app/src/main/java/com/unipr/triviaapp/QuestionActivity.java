@@ -75,7 +75,7 @@ public class QuestionActivity extends AppCompatActivity  {
         mUserName = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
         QuestionClient.getQuestions(numberOfQuestions, category, difficulty, mQuestionsList);
         try {
-            Thread.sleep(3000);
+            Thread.sleep(2500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

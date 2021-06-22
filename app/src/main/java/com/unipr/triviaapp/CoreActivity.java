@@ -31,6 +31,10 @@ public class CoreActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     RelativeLayout coreLayout;
 
+    String email;
+    String name;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,16 +46,21 @@ public class CoreActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
+        email = getIntent().getExtras().getString(ExtrasHelper.EMAIL);
+        Bundle bundle = new Bundle();
+        bundle.putString(ExtrasHelper.EMAIL, email);
+        HomeFragment fragment = new HomeFragment();
+        fragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
 
-        String email = getIntent().getStringExtra(ExtrasHelper.EMAIL);
-        String name = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    email = getIntent().getStringExtra(ExtrasHelper.EMAIL);
+                    name = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
                     Fragment selectedFragment = null;
                     switch (item.getItemId()) {
                         case R.id.nav_home:
