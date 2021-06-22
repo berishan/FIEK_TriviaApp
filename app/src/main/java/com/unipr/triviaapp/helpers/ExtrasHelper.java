@@ -10,4 +10,5 @@ public class ExtrasHelper {
     public static final String SCORE = "SCORE";
     public static final String DIFFICULTY = "DIFFICULTY";
     public static final String CATEGORY = "CATEGORY";
+    public static final String FIRST_TIME = "FIRST_TIME";
 }

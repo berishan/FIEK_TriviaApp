@@ -110,7 +110,10 @@ public class LoginActivity extends AppCompatActivity{
                     progressBar.setVisibility(View.GONE);
                 }
                 else {
-                    startActivity(new Intent(this.getApplicationContext(), CoreActivity.class));
+                    Intent intent = new Intent(this.getApplicationContext(), CoreActivity.class);
+                    intent.putExtra(ExtrasHelper.EMAIL, user.getEmail());
+                    intent.putExtra(ExtrasHelper.FULL_NAME, user.getDisplayName());
+                    startActivity(intent);
                 }
 
             } else {

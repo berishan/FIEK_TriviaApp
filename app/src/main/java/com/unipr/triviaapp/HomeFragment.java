@@ -77,6 +77,8 @@ public class HomeFragment extends Fragment{
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+
         categoriesSpinner = (Spinner) getView().findViewById(R.id.category_spinner);
         difficultySpinner = (Spinner) getView().findViewById(R.id.difficulty_spinner);
         numberOfQuestionsEt = (EditText) getView().findViewById(R.id.etNumOfQuestions);
@@ -126,14 +128,15 @@ public class HomeFragment extends Fragment{
 
         // https://opentdb.com/api.php?amount=10&category=23&difficulty=medium&type=multiple
 
-        Intent i = new Intent(this.getContext(), QuestionActivity.class);
+        Intent intent = new Intent(this.getContext(), QuestionActivity.class);
 
-        i.putExtra(ExtrasHelper.CATEGORY, category);
-        i.putExtra(ExtrasHelper.DIFFICULTY, difficulty);
-        i.putExtra(ExtrasHelper.TOTAL_QUESTIONS, numberOfQuestions);
+        intent.putExtra(ExtrasHelper.FULL_NAME, "Rinor");
+        intent.putExtra(ExtrasHelper.CATEGORY, category);
+        intent.putExtra(ExtrasHelper.DIFFICULTY, difficulty);
+        intent.putExtra(ExtrasHelper.TOTAL_QUESTIONS, numberOfQuestions);
 
 
-         startActivity(new Intent(this.getContext(), QuestionActivity.class));
+         startActivity(intent);
 
     }
 

@@ -53,10 +53,9 @@ public class QuestionClient {
         categoryMap.put("History", 23);
         categoryMap.put("Geography", 22);
         categoryMap.put("Science: Computers", 18);
-        categoryMap.put("Art", 25);
+        categoryMap.put("Entertainment: Comics", 29);
 
-        String apiURL = String.format(baseURL, 10, categoryMap.get("Sports"
-        ), "medium");
+        String apiURL = String.format(baseURL, amount, categoryMap.get(category), difficulty.toLowerCase());
 
         getData(apiURL,  questionsArrayList);
         Log.println(Log.INFO, "Test", apiURL);

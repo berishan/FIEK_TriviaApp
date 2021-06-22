@@ -1,5 +1,7 @@
 package com.unipr.triviaapp;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,9 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.unipr.triviaapp.adapters.ResultAdapter;
+import com.unipr.triviaapp.db.DatabaseHelper;
+import com.unipr.triviaapp.db.Queries;
 import com.unipr.triviaapp.entities.Result;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -82,10 +87,30 @@ public class HistoryFragment extends Fragment {
 
         adapter = new ResultAdapter(this.getContext());
         resultsListView.setAdapter(adapter);
-
-        adapter.getResultList().add(new Result(1, "Rinor Ahmeti", "10", "9", "6900", "09/09/2021", "Easy", "Art"));
-        adapter.getResultList().add(new Result(2, "Nora Ahmeti", "10", "9", "10000", "09/09/2021", "Medium", "Sports"));
-        adapter.getResultList().add(new Result(3, "Musa Ahmeti", "5", "5", "5000", "09/09/2021", "Hard", "General Knowledge"));
+        adapter.setResultList(getResults());
         adapter.notifyDataSetChanged();
+    }
+
+    private List<Result> getResults(){
+        List<Result> results = new ArrayList<>();
+        SQLiteDatabase database = new DatabaseHelper(this.getContext()).getReadableDatabase();
+        Cursor cursor = database.rawQuery(Queries.GET_RESULTS, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            results.add(new Result(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getInt(2)+"",
+                    cursor.getInt(3)+"",
+                    cursor.getInt(4)+"",
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getString(7)
+            ));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        database.close();
+        return results;
     }
 }

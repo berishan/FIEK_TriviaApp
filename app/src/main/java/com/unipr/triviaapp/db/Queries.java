@@ -7,6 +7,11 @@ public class Queries {
             "\tuser TEXT NOT NULL,\n" +
             "\tnumber_of_questions INTEGER NOT NULL,\n" +
             "\tcorrect_answers INTEGER NOT NULL,\n" +
-            "\tpoints INTEGER NOT NULL\n" +
+            "\tpoints INTEGER NOT NULL,\n" +
+            "\tdate TEXT,\n" +
+            "\tdifficulty TEXT NOT NULL,\n" +
+            "\tcategory TEXT NOT NULL\n" +
             ");";
+
+    public static final String GET_RESULTS = "SELECT * FROM results";
 }

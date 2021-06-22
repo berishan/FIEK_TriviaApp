@@ -45,6 +45,9 @@ public class QuestionActivity extends AppCompatActivity  {
     private long timeLeftInMillis;
     private int mCurrentPosition = 1;
     private ArrayList<Question> mQuestionsList = new ArrayList<>();
+
+    private String difficulty;
+    private String category;
     private int mSelectedOption = 0;
     private int mCorrectAnswers = 0;
 
@@ -55,11 +58,32 @@ public class QuestionActivity extends AppCompatActivity  {
     private ProgressBar progressBar;
     private TextView tvProgressText, tvQuestion;
     private TextView tvOptionOne, tvOptionTwo, tvOptionThree, tvOptionFour, tvCountdown;
+    private TextView tvMainCountdown;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_question);
+
+       // TODO String seconds = "getIntent().getIntExtra(\"SECONDS\")";
+        timeLeftInMillis = 60*1000;
+
+        difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);
+        category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
+        int numberOfQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS, 0);
+        mUserName = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
+        QuestionClient.getQuestions(numberOfQuestions, category, difficulty, mQuestionsList);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        tvMainCountdown = findViewById(R.id.tvMainCountdown);
+
+
+
         setContentView(R.layout.activity_question);
         progressBar = findViewById(R.id.progressBar);
         tvProgressText = findViewById(R.id.tvProgress);
@@ -69,21 +93,6 @@ public class QuestionActivity extends AppCompatActivity  {
         tvOptionThree = findViewById(R.id.tvOptionThree);
         tvOptionFour = findViewById(R.id.tvOptionFour);
         tvCountdown = findViewById(R.id.tvCountdown);
-
-        String difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);
-        String category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
-        int numberOfQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS, 0);
-
-        String seconds = "getIntent().getIntExtra(\"SECONDS\")";
-        timeLeftInMillis = 60*1000;
-
-        mUserName = "getIntent().getStringExtra(\"USERNAME\");";
-        QuestionClient.getQuestions(numberOfQuestions,category,difficulty, mQuestionsList);
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         progressBar.setMax(mQuestionsList.size());
 
@@ -163,6 +172,18 @@ public class QuestionActivity extends AppCompatActivity  {
 
     }
 
+    private void changeLayout() {
+        for(int i = 9; i <= 0; i--){
+            Log.println(Log.INFO, "Loop info Fiek", "Loop"+ i);
+            tvMainCountdown.setText(i+"");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void validateAnswer(){
             Question question = mQuestionsList.get(mCurrentPosition - 1);
             if(question.getCorrectAnswer() != mSelectedOption){
@@ -184,9 +205,11 @@ public class QuestionActivity extends AppCompatActivity  {
         } else {
             mScore = mScore + mCorrectAnswers;
             Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
-            intent.putExtra("USERNAME", mUserName);
+            intent.putExtra(ExtrasHelper.FULL_NAME, mUserName);
             intent.putExtra(ExtrasHelper.CORRECT_ANSWERS, mCorrectAnswers);
             intent.putExtra(ExtrasHelper.TOTAL_QUESTIONS, mQuestionsList.size());
+            intent.putExtra(ExtrasHelper.DIFFICULTY, difficulty);
+            intent.putExtra(ExtrasHelper.CATEGORY, category);
             intent.putExtra(ExtrasHelper.SCORE, mScore);
             startActivity(intent);
             finish();

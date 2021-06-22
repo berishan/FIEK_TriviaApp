@@ -20,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 import static android.content.ContentValues.TAG;
 
@@ -42,6 +43,9 @@ public class CoreActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
+
+        String email = getIntent().getStringExtra(ExtrasHelper.EMAIL);
+        String name = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -85,7 +89,7 @@ public class CoreActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 break;
-                // create quiz later
+                // TODO create quiz later
         }
         return super.onOptionsItemSelected(item);
     }
