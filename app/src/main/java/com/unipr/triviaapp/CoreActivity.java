@@ -20,6 +20,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.unipr.triviaapp.entities.User;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 import static android.content.ContentValues.TAG;
@@ -29,6 +35,10 @@ public class CoreActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+    DatabaseReference reference;
+    String userId;
+
+
     RelativeLayout coreLayout;
 
     HistoryFragment historyFragment = new HistoryFragment();
@@ -44,17 +54,45 @@ public class CoreActivity extends AppCompatActivity {
 
         coreLayout = findViewById(R.id.relativeLayoutCore);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userId = firebaseUser.getUid();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-        email = getIntent().getExtras().getString(ExtrasHelper.EMAIL);
+
+        name = "User";
+        email = "email";
+        reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if(user != null){
+                    name = user.getName()+ " " + user.getLastName();
+                    email = user.getEmail();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(CoreActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Bundle bundle = new Bundle();
         bundle.putString(ExtrasHelper.EMAIL, email);
+        bundle.putString(ExtrasHelper.FULL_NAME, name);
+
         HomeFragment fragment = new HomeFragment();
         fragment.setArguments(bundle);
         historyFragment.setArguments(bundle);
+//        LeaderboardFragment fragment = new LeaderboardFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
-
 
     }
 
@@ -66,20 +104,23 @@ public class CoreActivity extends AppCompatActivity {
                     switch (item.getItemId()) {
                         case R.id.nav_home:
                             selectedFragment = new HomeFragment();
-                            email = getIntent().getExtras().getString(ExtrasHelper.EMAIL);
                             Bundle bundle = new Bundle();
                             bundle.putString(ExtrasHelper.EMAIL, email);
+                            bundle.putString(ExtrasHelper.FULL_NAME, name);
                             selectedFragment.setArguments(bundle);
                             break;
                         case R.id.nav_history:
                             selectedFragment = new HistoryFragment();
-                            email = getIntent().getExtras().getString(ExtrasHelper.EMAIL);
                             Bundle bundle1 = new Bundle();
                             bundle1.putString(ExtrasHelper.EMAIL, email);
+                            bundle1.putString(ExtrasHelper.FULL_NAME, name);
                             selectedFragment.setArguments(bundle1);
                             break;
                         case R.id.nav_leaderboard:
+                            Bundle bundle2 = new Bundle();
                             selectedFragment = new LeaderboardFragment();
+                            bundle2.putString(ExtrasHelper.EMAIL, email);
+                            bundle2.putString(ExtrasHelper.FULL_NAME, name);
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,

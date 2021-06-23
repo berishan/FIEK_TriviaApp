@@ -1,5 +1,6 @@
 package com.unipr.triviaapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,13 +15,19 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.unipr.triviaapp.entities.User;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity{
@@ -30,6 +37,11 @@ public class LoginActivity extends AppCompatActivity{
     private TextView twRegister, twForgotPassword;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+
+
+    private FirebaseUser firebaseUser;
+    private DatabaseReference databaseReference;
+    private String firebaseUserId;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +55,15 @@ public class LoginActivity extends AppCompatActivity{
         twForgotPassword = findViewById(R.id.twForgotPassword);
         progressBar = findViewById(R.id.progressBar2);
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+
+
         String email = getIntent().getStringExtra(ExtrasHelper.EMAIL);
         if(email != null){
             etEmail.setText(email);
         }
 
-
+        //Task<DataSnapshot> a = FirebaseDatabase.getInstance().getReference("Users")
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,8 +129,6 @@ public class LoginActivity extends AppCompatActivity{
                 }
                 else {
                     Intent intent = new Intent(this.getApplicationContext(), CoreActivity.class);
-                    intent.putExtra(ExtrasHelper.EMAIL, user.getEmail());
-                    intent.putExtra(ExtrasHelper.FULL_NAME,"TEST");
                     startActivity(intent);
                 }
 

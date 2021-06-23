@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar1.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                User user = new User(name, lastName, email);
+                User user = new User(name, lastName, email, 0);
 
                 FirebaseDatabase.getInstance().getReference("Users")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

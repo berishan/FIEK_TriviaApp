@@ -1,5 +1,6 @@
 package com.unipr.triviaapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
@@ -11,8 +12,16 @@ import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.unipr.triviaapp.db.DBConfig;
 import com.unipr.triviaapp.db.DatabaseHelper;
+import com.unipr.triviaapp.entities.User;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 import java.sql.Timestamp;
@@ -25,10 +34,17 @@ import java.util.Locale;
 
 public class ResultActivity extends AppCompatActivity {
 
+
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    DatabaseReference reference;
+    String userId;
+
     private TextView tvUsername, tvResult, tvScore;
     private MediaPlayer mediaPlayer = null;
 
     private final int TIMEOUT = 5000;
+    private int highScore;
 
     private String username, category, difficulty;
     private int totalQuestions, correctAnswers, score;
@@ -38,27 +54,50 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-         username = getIntent().getStringExtra(ExtrasHelper.EMAIL);
+         username = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
          category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
          difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);
-
-
-        tvUsername = findViewById(R.id.tvName);
-        tvUsername.setText(username);
-
          totalQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS,0);
          correctAnswers = getIntent().getIntExtra(ExtrasHelper.CORRECT_ANSWERS, 0);
          score = getIntent().getIntExtra(ExtrasHelper.SCORE, 0);
 
-        mediaPlayer =  MediaPlayer.create(ResultActivity.this, R.raw.result);
-        mediaPlayer.start();
-        tvResult = findViewById(R.id.tvResult);
-        tvResult.setText(String.format("Correct answers: %d/%d", correctAnswers, totalQuestions));
+         tvUsername = findViewById(R.id.tvName);
+         tvUsername.setText(username);
+         tvResult = findViewById(R.id.tvResult);
+         tvScore = findViewById(R.id.tvScore);
 
-        tvScore = findViewById(R.id.tvScore);
-        tvScore.setText(String.format("Score: %d", score));
+         tvResult.setText(String.format("Correct answers: %d/%d", correctAnswers, totalQuestions));
+         tvScore.setText(String.format("Score: %d", score));
 
-        saveToDb();
+         mediaPlayer =  MediaPlayer.create(ResultActivity.this, R.raw.result);
+         mediaPlayer.start();
+         saveToDb();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userId = firebaseUser.getUid();
+
+        reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if(user != null){
+                    highScore =  user.getHighScore();
+                    if(highScore < score){
+                        user.setHighScore(score);
+                        reference.child(userId).setValue(user);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ResultActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         new Handler().postDelayed(new Runnable() {
             @Override

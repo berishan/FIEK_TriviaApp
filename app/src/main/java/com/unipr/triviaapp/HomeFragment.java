@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment{
     private String mParam2;
 
     private String name;
+    private String email;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -80,11 +81,12 @@ public class HomeFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        String email;
+
 
         if (this.getArguments() == null) {
-            email = "mut";
+            name = "User";
         } else {
+            name = this.getArguments().getString(ExtrasHelper.FULL_NAME);
             email = this.getArguments().getString(ExtrasHelper.EMAIL);
         }
 
@@ -104,7 +106,7 @@ public class HomeFragment extends Fragment{
         difficultySpinner.setAdapter(difficultyAdapter);
 
         startQuizButton.setOnClickListener( e-> {
-            startQuiz(email);
+            startQuiz(name);
         });
 
 
@@ -117,11 +119,11 @@ public class HomeFragment extends Fragment{
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-    public void startQuiz(String email) {
+    public void startQuiz(String name) {
         Integer numberOfQuestions;
         try {
             numberOfQuestions = Integer.parseInt(numberOfQuestionsEt.getEditableText().toString().trim());
-            if (numberOfQuestions > 10 || numberOfQuestions < 1) {
+            if (numberOfQuestions > 10 || numberOfQuestions < 5) {
                 numberOfQuestionsEt.setError("The number of questions must be between 5 and 10");
                 numberOfQuestionsEt.requestFocus();
                 return;
@@ -140,7 +142,7 @@ public class HomeFragment extends Fragment{
 
         Intent intent = new Intent(this.getContext(), QuestionActivity.class);
         // TODO ndreqe qita
-        intent.putExtra(ExtrasHelper.EMAIL, email);
+        intent.putExtra(ExtrasHelper.FULL_NAME, name);
         intent.putExtra(ExtrasHelper.CATEGORY, category);
         intent.putExtra(ExtrasHelper.DIFFICULTY, difficulty);
         intent.putExtra(ExtrasHelper.TOTAL_QUESTIONS, numberOfQuestions);
