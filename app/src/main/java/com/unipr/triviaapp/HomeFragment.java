@@ -140,13 +140,13 @@ public class HomeFragment extends Fragment{
 
         Intent intent = new Intent(this.getContext(), QuestionActivity.class);
         // TODO ndreqe qita
-        intent.putExtra(ExtrasHelper.FULL_NAME, email);
+        intent.putExtra(ExtrasHelper.EMAIL, email);
         intent.putExtra(ExtrasHelper.CATEGORY, category);
         intent.putExtra(ExtrasHelper.DIFFICULTY, difficulty);
         intent.putExtra(ExtrasHelper.TOTAL_QUESTIONS, numberOfQuestions);
 
 
-         startActivity(intent);
+        startActivity(intent);
 
     }
 

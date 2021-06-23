@@ -38,7 +38,7 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-         username = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
+         username = getIntent().getStringExtra(ExtrasHelper.EMAIL);
          category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
          difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);
 
@@ -65,6 +65,7 @@ public class ResultActivity extends AppCompatActivity {
             public void run() {
                 mediaPlayer.stop();
                 Intent intent = new Intent(ResultActivity.this, CoreActivity.class);
+                intent.putExtra(ExtrasHelper.EMAIL, username);
                 startActivity(intent);
                 finish();
             }

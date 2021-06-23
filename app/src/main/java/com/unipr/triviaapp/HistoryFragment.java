@@ -17,6 +17,7 @@ import com.unipr.triviaapp.adapters.ResultAdapter;
 import com.unipr.triviaapp.db.DatabaseHelper;
 import com.unipr.triviaapp.db.Queries;
 import com.unipr.triviaapp.entities.Result;
+import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -31,6 +32,8 @@ public class HistoryFragment extends Fragment {
 
     ListView resultsListView;
     ResultAdapter adapter;
+
+    String email;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,35 +69,35 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+
         return inflater.inflate(R.layout.fragment_history, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         resultsListView = (ListView) getView().findViewById(R.id.resultsListView);
-
         List<Result> resultList = new ArrayList<>();
-
+        if (getArguments() != null) {
+            email = this.getArguments().getString(ExtrasHelper.EMAIL);
+        } else {
+            email = "muti123";
+        }
         adapter = new ResultAdapter(this.getContext());
         resultsListView.setAdapter(adapter);
-        adapter.setResultList(getResults());
+        adapter.setResultList(getResults(email));
         adapter.notifyDataSetChanged();
     }
 
-    private List<Result> getResults(){
+    private List<Result> getResults(String email){
         List<Result> results = new ArrayList<>();
         SQLiteDatabase database = new DatabaseHelper(this.getContext()).getReadableDatabase();
-        Cursor cursor = database.rawQuery(Queries.GET_RESULTS, new String[] {});
+        Cursor cursor = database.rawQuery(Queries.GET_RESULTS, new String[] { email});
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
             results.add(new Result(

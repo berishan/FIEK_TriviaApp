@@ -31,6 +31,8 @@ public class CoreActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     RelativeLayout coreLayout;
 
+    HistoryFragment historyFragment = new HistoryFragment();
+
     String email;
     String name;
 
@@ -45,13 +47,14 @@ public class CoreActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-
         email = getIntent().getExtras().getString(ExtrasHelper.EMAIL);
         Bundle bundle = new Bundle();
         bundle.putString(ExtrasHelper.EMAIL, email);
         HomeFragment fragment = new HomeFragment();
         fragment.setArguments(bundle);
+        historyFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
+
 
     }
 
@@ -59,15 +62,21 @@ public class CoreActivity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    email = getIntent().getStringExtra(ExtrasHelper.EMAIL);
-                    name = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
                     Fragment selectedFragment = null;
                     switch (item.getItemId()) {
                         case R.id.nav_home:
                             selectedFragment = new HomeFragment();
+                            email = getIntent().getExtras().getString(ExtrasHelper.EMAIL);
+                            Bundle bundle = new Bundle();
+                            bundle.putString(ExtrasHelper.EMAIL, email);
+                            selectedFragment.setArguments(bundle);
                             break;
                         case R.id.nav_history:
                             selectedFragment = new HistoryFragment();
+                            email = getIntent().getExtras().getString(ExtrasHelper.EMAIL);
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putString(ExtrasHelper.EMAIL, email);
+                            selectedFragment.setArguments(bundle1);
                             break;
                         case R.id.nav_leaderboard:
                             selectedFragment = new LeaderboardFragment();

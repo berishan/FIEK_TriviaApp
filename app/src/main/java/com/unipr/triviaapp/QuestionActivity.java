@@ -53,7 +53,7 @@ public class QuestionActivity extends AppCompatActivity  {
 
     private int mScore = 0;
     private int mStreak = 1;
-    private String mUserName = null;
+    private String mUserName;
 
     private ProgressBar progressBar;
     private TextView tvProgressText, tvQuestion;
@@ -72,7 +72,7 @@ public class QuestionActivity extends AppCompatActivity  {
         difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);
         category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
         int numberOfQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS, 0);
-        mUserName = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
+        mUserName = getIntent().getStringExtra(ExtrasHelper.EMAIL);
         QuestionClient.getQuestions(numberOfQuestions, category, difficulty, mQuestionsList);
         try {
             Thread.sleep(2500);
@@ -205,7 +205,7 @@ public class QuestionActivity extends AppCompatActivity  {
         } else {
             mScore = mScore + mCorrectAnswers;
             Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
-            intent.putExtra(ExtrasHelper.FULL_NAME, mUserName);
+            intent.putExtra(ExtrasHelper.EMAIL, mUserName);
             intent.putExtra(ExtrasHelper.CORRECT_ANSWERS, mCorrectAnswers);
             intent.putExtra(ExtrasHelper.TOTAL_QUESTIONS, mQuestionsList.size());
             intent.putExtra(ExtrasHelper.DIFFICULTY, difficulty);

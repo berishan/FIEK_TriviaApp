@@ -13,5 +13,5 @@ public class Queries {
             "\tcategory TEXT NOT NULL\n" +
             ");";
 
-    public static final String GET_RESULTS = "SELECT * FROM results";
+    public static final String GET_RESULTS = "SELECT * FROM results where user = ?";
 }
