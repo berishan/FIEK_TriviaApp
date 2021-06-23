@@ -2,11 +2,20 @@ package com.unipr.triviaapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.unipr.triviaapp.adapters.LeaderboardAdapter;
+import com.unipr.triviaapp.entities.Leaderboard;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +23,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class LeaderboardFragment extends Fragment {
+
+    ListView lvLeaderboard;
+    LeaderboardAdapter leaderboardAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +72,25 @@ public class LeaderboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_leaderboard, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        lvLeaderboard = view.findViewById(R.id.leaderboardsListView);
+
+        leaderboardAdapter = new LeaderboardAdapter(getContext());
+        lvLeaderboard.setAdapter(leaderboardAdapter);
+
+        List<Leaderboard> leaderboards = new ArrayList<>();
+
+        for (int i = 0; i < 15; i++) {
+            leaderboards.add(new Leaderboard(1, "user" + i, "user.email@gmail.com",
+                    "90" + i, "hard", "Science"));
+        }
+
+        leaderboardAdapter.setLeaderboards(leaderboards);
+        leaderboardAdapter.notifyDataSetChanged();
+
+
     }
 }
