@@ -88,7 +88,7 @@ public class ResultActivity extends AppCompatActivity {
                     if(highScore < score){
                         user.setHighScore(score);
                         reference.child(userId).setValue(user);
-                        saveToDb();
+
                     }
                 }
             }
@@ -106,8 +106,9 @@ public class ResultActivity extends AppCompatActivity {
             public void run() {
                 mediaPlayer.stop();
                 Intent intent = new Intent(ResultActivity.this, CoreActivity.class);
-                intent.putExtra(ExtrasHelper.EMAIL, username);
+                intent.putExtra(ExtrasHelper.EMAIL, email);
                 startActivity(intent);
+                saveToDb();
                 finish();
             }
         }, TIMEOUT);

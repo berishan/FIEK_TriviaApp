@@ -82,7 +82,6 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         resultsListView =  getView().findViewById(R.id.resultsListView);
-        List<Result> resultList = new ArrayList<>();
         if (getArguments() != null) {
             email = this.getArguments().getString(ExtrasHelper.EMAIL);
         } else {
