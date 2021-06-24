@@ -75,7 +75,7 @@ public class QuestionActivity extends AppCompatActivity  {
 
         QuestionClient.getQuestions(numberOfQuestions, category, difficulty, mQuestionsList);
         try {
-            Thread.sleep(2500);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

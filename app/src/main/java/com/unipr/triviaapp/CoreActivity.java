@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -64,37 +65,44 @@ public class CoreActivity extends AppCompatActivity {
 
         name = "User";
         email = "email";
-        reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                if(user != null){
-                    name = user.getName()+ " " + user.getLastName();
-                    email = user.getEmail();
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(CoreActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Bundle bundle = new Bundle();
-        bundle.putString(ExtrasHelper.EMAIL, email);
-        bundle.putString(ExtrasHelper.FULL_NAME, name);
-
-        HomeFragment fragment = new HomeFragment();
-        fragment.setArguments(bundle);
-        historyFragment.setArguments(bundle);
-//        LeaderboardFragment fragment = new LeaderboardFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
-
+        new AsyncCoreActivity().execute();
     }
+
+    class AsyncCoreActivity extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User user = snapshot.getValue(User.class);
+                    if (user != null) {
+                        name = user.getName() + " " + user.getLastName();
+                        email = user.getEmail();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(ExtrasHelper.EMAIL, email);
+                        bundle.putString(ExtrasHelper.FULL_NAME, name);
+
+                        HomeFragment fragment = new HomeFragment();
+                        fragment.setArguments(bundle);
+                        historyFragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(CoreActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            return;
+        }
+    };
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -159,3 +167,4 @@ public class CoreActivity extends AppCompatActivity {
          // mos me t bo logout me back
     }
 }
+

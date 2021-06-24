@@ -34,7 +34,7 @@ import java.util.Locale;
 
 public class ResultActivity extends AppCompatActivity {
 
-
+    String email;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -71,7 +71,7 @@ public class ResultActivity extends AppCompatActivity {
 
          mediaPlayer =  MediaPlayer.create(ResultActivity.this, R.raw.result);
          mediaPlayer.start();
-         saveToDb();
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -83,10 +83,12 @@ public class ResultActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 if(user != null){
+                    email = user.getEmail();
                     highScore =  user.getHighScore();
                     if(highScore < score){
                         user.setHighScore(score);
                         reference.child(userId).setValue(user);
+                        saveToDb();
                     }
                 }
             }
@@ -115,7 +117,7 @@ public class ResultActivity extends AppCompatActivity {
     private void saveToDb() {
         SQLiteDatabase database = new DatabaseHelper(ResultActivity.this).getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBConfig.USER, username);
+        values.put(DBConfig.USER, email);
         values.put(DBConfig.NUMBER_OF_QUESTIONS, totalQuestions);
         values.put(DBConfig.CORRECT_ANSWERS, correctAnswers);
         values.put(DBConfig.POINTS, score);
