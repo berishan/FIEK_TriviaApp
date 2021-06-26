@@ -10,4 +10,5 @@
     <color name="yellowLight">#FFC22F</color>
     <color name="strokeColor">#d7f2bc</color>
     <color name="fillColor">#cfe3f4</color>
+    <color name="red">#A40000</color>
 </resources>

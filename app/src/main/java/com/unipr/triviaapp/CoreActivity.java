@@ -102,7 +102,7 @@ public class CoreActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             return;
         }
-    };
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
