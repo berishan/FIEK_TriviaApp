@@ -3,6 +3,7 @@ package com.unipr.triviaapp;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -21,6 +22,7 @@ import com.unipr.triviaapp.entities.QuestionApiEntity;
 import com.unipr.triviaapp.entities.mappers.QuestionMapper;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -69,7 +71,7 @@ public class QuestionActivity extends AppCompatActivity {
         categoryMap.put("Entertainment: Comics", 29);
 
         // TODO String seconds = "getIntent().getIntExtra(\"SECONDS\")";
-        timeLeftInMillis = 60 * 1000;
+        timeLeftInMillis = 30 * 1000;
 
         difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);
         category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
@@ -257,6 +259,7 @@ public class QuestionActivity extends AppCompatActivity {
                 ));
                 break;
 
+
         }
     }
 
@@ -268,26 +271,28 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void startCountdown() {
+       MediaPlayer mediaPlayer =  MediaPlayer.create(QuestionActivity.this, R.raw.countdown);
         countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeLeftInMillis = millisUntilFinished;
                 updateCountdownView();
                 if (timeLeftInMillis < 10000) {
+                    mediaPlayer.start();
                     tvCountdown.setTextColor(getResources().getColor(R.color.red));
                 }
             }
 
             @Override
             public void onFinish() {
+                mediaPlayer.stop();
                 mSelectedOption = 0;
                 validateAnswer();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        timeLeftInMillis = 60000;
+                        timeLeftInMillis = 30000;
                         tvCountdown.setTextColor(getResources().getColor(R.color.black));
-                        startCountdown();
                         changeQuestion();
                     }
                 }, 2000);
@@ -315,7 +320,7 @@ public class QuestionActivity extends AppCompatActivity {
     private void stopCountdown() {
         countDownTimer.cancel();
         mScore += mStreak * timeLeftInMillis / 10000;
-        timeLeftInMillis = 60000;
+        timeLeftInMillis = 30000;
     }
 
 
@@ -353,10 +358,18 @@ public class QuestionActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         String res = response.body().string();
                         Gson gsonParser = new Gson();
-
                         QuestionApiEntity questionApiEntity = gsonParser.fromJson(res, QuestionApiEntity.class);
                         list = questionApiEntity.getResults();
                         for (ApiResult member : list) {
+                            member.question = StringEscapeUtils.unescapeHtml4(member.question);
+                            member.correct_answer = StringEscapeUtils.unescapeHtml4(member.correct_answer);
+                            List<String> inc = new ArrayList<>();
+                            for(int i = 0; i < 3; i++){
+                                String string = member.incorrect_answers.get(i);
+                                string = StringEscapeUtils.unescapeHtml4(string);
+                                inc.add(string);
+                            }
+                            member.incorrect_answers = inc;
                             mQuestionsList.add(QuestionMapper.mapApiResultToQuestion(member));
                         }
 
