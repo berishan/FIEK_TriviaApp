@@ -1,5 +1,6 @@
 package com.unipr.triviaapp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -58,6 +59,20 @@ public class QuestionActivity extends AppCompatActivity {
     private TextView tvOptionOne, tvOptionTwo, tvOptionThree, tvOptionFour, tvCountdown;
     private TextView tvMainCountdown;
     private MediaPlayer mediaPlayer;
+
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Are you sure you want to exit?")
+                .setMessage("You will lose the progress of the quiz!")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    Intent intent = new Intent(QuestionActivity.this, CoreActivity.class);
+                    intent.putExtra(ExtrasHelper.FULL_NAME, mUserName);
+                    startActivity(intent);
+                    finish();
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
