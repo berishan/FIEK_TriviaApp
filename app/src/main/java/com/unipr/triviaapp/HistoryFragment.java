@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.unipr.triviaapp.adapters.ResultAdapter;
+import com.unipr.triviaapp.db.DBConfig;
 import com.unipr.triviaapp.db.DatabaseHelper;
 import com.unipr.triviaapp.db.Queries;
 import com.unipr.triviaapp.entities.Result;
@@ -107,12 +108,12 @@ public class HistoryFragment extends Fragment {
                         snackbar.setAction("Confirm", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                SQLiteDatabase database = new DatabaseHelper(getContext()).getReadableDatabase();
-                                database.rawQuery(Queries.DELETE_RESULTS, new String[] {email});
+                                SQLiteDatabase database = new DatabaseHelper(getContext()).getWritableDatabase();
+                                database.delete(DBConfig.TABLE_NAME, " user = " + "'" + email + "';", null);
+                                database.close();
                             }
                         });
                         snackbar.show();
-
             }
         });
     }

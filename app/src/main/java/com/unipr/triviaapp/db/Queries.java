@@ -14,5 +14,5 @@ public class Queries {
             ");";
 
     public static final String GET_RESULTS = "SELECT * FROM results WHERE user = ?";
-    public static final String DELETE_RESULTS = "DELETE FROM results WHERE user = ?";
+//    public static final String DELETE_RESULTS = "DELETE FROM results WHERE user = ";
 }
