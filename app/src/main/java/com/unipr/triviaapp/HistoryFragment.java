@@ -111,6 +111,16 @@ public class HistoryFragment extends Fragment {
                                 SQLiteDatabase database = new DatabaseHelper(getContext()).getWritableDatabase();
                                 database.delete(DBConfig.TABLE_NAME, " user = " + "'" + email + "';", null);
                                 database.close();
+                                if(getActivity() != null){
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            adapter.setResultList(getResults(email));
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    });
+                                }
+
                             }
                         });
                         snackbar.show();
