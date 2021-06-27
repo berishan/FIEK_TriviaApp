@@ -124,7 +124,7 @@ public class ResultActivity extends AppCompatActivity {
         values.put(DBConfig.POINTS, score);
         values.put(DBConfig.DIFFICULTY, difficulty);
         values.put(DBConfig.CATEGORY, category);
-        values.put(DBConfig.DATE,  new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY).format(Calendar.getInstance().getTime()));
+        values.put(DBConfig.DATE,  new SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).format(Calendar.getInstance().getTime()));
         try {
             long id = database.insert(DBConfig.TABLE_NAME, null, values );
             if(id < 0){
