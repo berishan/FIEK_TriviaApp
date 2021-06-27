@@ -57,6 +57,7 @@ public class QuestionActivity extends AppCompatActivity {
     private TextView tvProgressText, tvQuestion;
     private TextView tvOptionOne, tvOptionTwo, tvOptionThree, tvOptionFour, tvCountdown;
     private TextView tvMainCountdown;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -270,7 +271,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void startCountdown() {
-       MediaPlayer mediaPlayer =  MediaPlayer.create(QuestionActivity.this, R.raw.countdown);
+        mediaPlayer =  MediaPlayer.create(QuestionActivity.this, R.raw.countdown);
         countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -317,6 +318,8 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void stopCountdown() {
+        mediaPlayer.stop();
+        tvCountdown.setTextColor(getResources().getColor(R.color.black));
         countDownTimer.cancel();
         mScore += mStreak * timeLeftInMillis / 10000;
         timeLeftInMillis = 30000;
