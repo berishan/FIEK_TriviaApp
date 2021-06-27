@@ -122,16 +122,18 @@ public class LeaderboardFragment extends Fragment {
                         if(i == 5) break;
                         winnerList.add(leaderboardList.get(i));
                     }
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            leaderboardAdapter = new LeaderboardAdapter(getContext());
-                            lvLeaderboard.setAdapter(leaderboardAdapter);
+                    if(getActivity() != null) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                leaderboardAdapter = new LeaderboardAdapter(getContext());
+                                lvLeaderboard.setAdapter(leaderboardAdapter);
 
-                            leaderboardAdapter.setLeaderboards(winnerList);
-                            leaderboardAdapter.notifyDataSetChanged();
-                        }
-                    });
+                                leaderboardAdapter.setLeaderboards(winnerList);
+                                leaderboardAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
                 }
             }
 
