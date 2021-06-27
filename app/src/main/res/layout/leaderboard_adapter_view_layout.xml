@@ -1,60 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="horizontal"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/leaderboardUserTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="User"
-        android:textStyle="bold"
-        android:textColor="#01771B"/>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_trophy" />
 
     <TextView
-        android:id="@+id/leaderboardEmailTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textStyle="bold"
-        android:textColor="#0755CA"
-        android:layout_below="@id/leaderboardUserTv"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_below="@id/leaderboardCategoryTv"
-        android:id="@+id/leaderboardLinearLayout">
-
-        <TextView
-            android:id="@+id/leaderboardDifficultyTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:textColor="#B30E0E"
-            android:text="Difficulty" />
-
-        <TextView
-            android:id="@+id/leaderboardScoreTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:textColor="#7F06D6"
-            android:text="Score" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/leaderboardCategoryTv"
+        android:id="@+id/userTv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Category"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+
+        android:text="User"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#BC09B9"
-        android:layout_below="@id/leaderboardEmailTv"/>
+        android:textColor="#01771B"
+        android:gravity="bottom" />
+
+    <TextView
+        android:id="@+id/scoreTv"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:text="Score"
+        android:textStyle="bold"
+        android:textColor="#01771B"
+        android:gravity="bottom" />
 
 
-</RelativeLayout>
+</LinearLayout>

@@ -70,7 +70,6 @@ public class QuestionActivity extends AppCompatActivity {
         categoryMap.put("Science: Computers", 18);
         categoryMap.put("Entertainment: Comics", 29);
 
-        // TODO String seconds = "getIntent().getIntExtra(\"SECONDS\")";
         timeLeftInMillis = 30 * 1000;
 
         difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);

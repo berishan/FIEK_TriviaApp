@@ -47,6 +47,7 @@ public class ResultActivity extends AppCompatActivity {
     private int highScore;
 
     private String username, category, difficulty;
+    private int multiplier;
     private int totalQuestions, correctAnswers, score;
 
     @Override
@@ -57,9 +58,23 @@ public class ResultActivity extends AppCompatActivity {
          username = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
          category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
          difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);
-         totalQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS,0);
-         correctAnswers = getIntent().getIntExtra(ExtrasHelper.CORRECT_ANSWERS, 0);
-         score = getIntent().getIntExtra(ExtrasHelper.SCORE, 0);
+
+
+        switch (difficulty){
+            case "Medium":
+                multiplier = 2;
+                break;
+            case "Hard":
+                multiplier = 3;
+                break;
+            default:
+                multiplier = 1;
+        }
+
+
+        totalQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS,0);
+        correctAnswers = getIntent().getIntExtra(ExtrasHelper.CORRECT_ANSWERS, 0);
+        score = getIntent().getIntExtra(ExtrasHelper.SCORE, 0) * multiplier;
 
          tvUsername = findViewById(R.id.tvName);
          tvUsername.setText(username);
@@ -77,6 +92,8 @@ public class ResultActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userId = firebaseUser.getUid();
+
+
 
         reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -124,7 +141,7 @@ public class ResultActivity extends AppCompatActivity {
         values.put(DBConfig.POINTS, score);
         values.put(DBConfig.DIFFICULTY, difficulty);
         values.put(DBConfig.CATEGORY, category);
-        values.put(DBConfig.DATE,  new SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).format(Calendar.getInstance().getTime()));
+        values.put(DBConfig.DATE,  new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.ITALY).format(Calendar.getInstance().getTime()));
         try {
             long id = database.insert(DBConfig.TABLE_NAME, null, values );
             if(id < 0){

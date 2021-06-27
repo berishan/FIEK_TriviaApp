@@ -69,7 +69,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             etEmail.requestFocus();
             return;
         }
-         // TODO progressBar
+
         progressBar.setVisibility(View.VISIBLE);
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

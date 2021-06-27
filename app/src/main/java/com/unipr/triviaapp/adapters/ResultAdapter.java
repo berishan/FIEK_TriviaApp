@@ -73,22 +73,7 @@ public class ResultAdapter extends BaseAdapter {
         viewHolder.getDateTaken().setText("Date: " + resultList.get(position).getDate());
 
 
-//        viewHolder.getUsersEmail().setText("User:" + resultList.get(position).getUser());
-//        viewHolder.getCorrectAnswers().setText("Correct answers:" + resultList.get(position).getCorrectAnswers());
-//        viewHolder.getNumberOfPoints().setText("Number of points:" + resultList.get(position).getTotalPoints());
-////        viewHolder.getNumberOfQuestions().setText("Number of questions:" + resultList.get(position).getNumberOfQuestions());
-//        viewHolder.getDateTaken().setText("Date taken:" + resultList.get(position).getDate());
 
-
-//        viewHolder.getCorrectAnswers().setText(resultList.get(position)
-//        .getCorrectAnswers());
-//        viewHolder.getDateTaken().setText(
-//                resultList.get(position).getDate()
-//        );
-//        viewHolder.getNumberOfPoints().setText(
-//                resultList.get(position).getTotalPoints());
-//        viewHolder.getNumberOfQuestions().setText(
-//                resultList.get(position).getNumberOfQuestions());
 
         return convertView;
     }

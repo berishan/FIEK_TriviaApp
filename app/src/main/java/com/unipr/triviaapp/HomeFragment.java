@@ -141,7 +141,6 @@ public class HomeFragment extends Fragment{
         // https://opentdb.com/api.php?amount=10&category=23&difficulty=medium&type=multiple
 
         Intent intent = new Intent(this.getContext(), QuestionActivity.class);
-        // TODO ndreqe qita
         intent.putExtra(ExtrasHelper.FULL_NAME, name);
         intent.putExtra(ExtrasHelper.CATEGORY, category);
         intent.putExtra(ExtrasHelper.DIFFICULTY, difficulty);

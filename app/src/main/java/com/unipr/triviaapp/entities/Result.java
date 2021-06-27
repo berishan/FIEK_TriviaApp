@@ -1,6 +1,6 @@
 package com.unipr.triviaapp.entities;
 
-public class Result {
+public class Result implements Comparable<Result>{
 
     private Integer id;
     private String user;
@@ -84,5 +84,10 @@ public class Result {
         this.date = date;
         this.difficulty = difficulty;
         this.category = category;
+    }
+
+    @Override
+    public int compareTo(Result o) {
+        return this.getDate().compareTo(o.getDate());
     }
 }

@@ -65,16 +65,16 @@ public class LeaderboardAdapter extends BaseAdapter {
             leaderboardViewHolder = (LeaderboardViewHolder)convertView.getTag();
         }
 
-        leaderboardViewHolder.getLeaderboardUsernameTv().setText("User:" +
-                leaderboards.get(position).getUser());
-        leaderboardViewHolder.getLeaderBoardCategoryTv().setText("Category:" +
-                leaderboards.get(position).getCategory());
-        leaderboardViewHolder.getLeaderboardDifficultyTv().setText("Difficulty: " +
-                leaderboards.get(position).getDifficulty());
-        leaderboardViewHolder.getLeaderboardEmailTv().setText("Email: " +
-                leaderboards.get(position).getEmail());
-        leaderboardViewHolder.getLeaderboardScoreTv().setText("Score: " +
-                leaderboards.get(position).getScore());
+        leaderboardViewHolder
+                .getLeaderboardUsernameTv()
+                .setText(leaderboards.get(position)
+                        .getFullName());
+        leaderboardViewHolder
+                .getLeaderboardScoreTv()
+                .setText(String.valueOf(leaderboards.get(position)
+                        .getHighScore()));
+
+
         return convertView;
     }
 }

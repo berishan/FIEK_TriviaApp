@@ -4,17 +4,30 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.unipr.triviaapp.adapters.LeaderboardAdapter;
 import com.unipr.triviaapp.entities.Leaderboard;
+import com.unipr.triviaapp.entities.User;
+
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -23,6 +36,14 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class LeaderboardFragment extends Fragment {
+
+    private String email;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private DatabaseReference reference;
+
+
+    private List<Leaderboard> leaderboardList;
 
     ListView lvLeaderboard;
     LeaderboardAdapter leaderboardAdapter;
@@ -76,21 +97,56 @@ public class LeaderboardFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        leaderboardList = new ArrayList<>();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+
         lvLeaderboard = view.findViewById(R.id.leaderboardsListView);
 
-        leaderboardAdapter = new LeaderboardAdapter(getContext());
-        lvLeaderboard.setAdapter(leaderboardAdapter);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds: snapshot.getChildren()){
+                    User user = ds.getValue(User.class);
+                    if(user != null){
+                        Leaderboard leaderboard = new Leaderboard();
+                        leaderboard.setId(snapshot.getKey().hashCode());
+                        leaderboard.setFullName(user.getName()+" "+ user.getLastName());
+                        leaderboard.setHighScore(user.getHighScore());
+                        leaderboardList.add(leaderboard);
+                    }
+                    Collections.sort(leaderboardList);
+                    List<Leaderboard> winnerList = new ArrayList<>();
+                    for(int i = 0; i < leaderboardList.size(); i++){
+                        if(i == 5) break;
+                        winnerList.add(leaderboardList.get(i));
+                    }
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            leaderboardAdapter = new LeaderboardAdapter(getContext());
+                            lvLeaderboard.setAdapter(leaderboardAdapter);
 
-        List<Leaderboard> leaderboards = new ArrayList<>();
+                            leaderboardAdapter.setLeaderboards(winnerList);
+                            leaderboardAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            }
 
-        for (int i = 0; i < 15; i++) {
-            leaderboards.add(new Leaderboard(1, "user" + i, "user.email@gmail.com",
-                    "90" + i, "hard", "Science"));
-        }
 
-        leaderboardAdapter.setLeaderboards(leaderboards);
-        leaderboardAdapter.notifyDataSetChanged();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
 
     }
+
+
+
 }

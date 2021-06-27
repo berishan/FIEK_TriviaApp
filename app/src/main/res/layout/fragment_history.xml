@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/historyLayout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
     android:layout_height="match_parent"
     tools:context=".HistoryFragment">
 
+    <Button
+        android:id="@+id/btnDeleteHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DELETE ALL"
+        android:layout_gravity="center"/>
 
-    <ListView
+<!--android:background="@drawable/ic_baseline_delete_forever_24"-->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/resultsListView"/>
+        tools:context=".HistoryFragment">
 
-</FrameLayout>
+        <ListView
+            android:id="@+id/resultsListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+
+</LinearLayout>

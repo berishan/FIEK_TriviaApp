@@ -11,8 +11,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.unipr.triviaapp.adapters.ResultAdapter;
 import com.unipr.triviaapp.db.DatabaseHelper;
 import com.unipr.triviaapp.db.Queries;
@@ -20,7 +24,7 @@ import com.unipr.triviaapp.entities.Result;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,6 +35,7 @@ import java.util.List;
 public class HistoryFragment extends Fragment {
 
     ListView resultsListView;
+    Button btnDeleteHistory;
     ResultAdapter adapter;
 
     String email;
@@ -82,15 +87,34 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         resultsListView =  getView().findViewById(R.id.resultsListView);
+        btnDeleteHistory = getView().findViewById(R.id.btnDeleteHistory);
         if (getArguments() != null) {
             email = this.getArguments().getString(ExtrasHelper.EMAIL);
         } else {
-            email = "muti123";
+            email = "";
         }
         adapter = new ResultAdapter(this.getContext());
         resultsListView.setAdapter(adapter);
         adapter.setResultList(getResults(email));
         adapter.notifyDataSetChanged();
+
+        btnDeleteHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Test", Toast.LENGTH_SHORT);
+                Snackbar snackbar = Snackbar.make(getView().findViewById(R.id.historyLayout), "Are you sure you want to delete your history?", BaseTransientBottomBar.LENGTH_LONG);
+
+                        snackbar.setAction("Confirm", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                SQLiteDatabase database = new DatabaseHelper(getContext()).getReadableDatabase();
+                                database.rawQuery(Queries.DELETE_RESULTS, new String[] {email});
+                            }
+                        });
+                        snackbar.show();
+
+            }
+        });
     }
 
     private List<Result> getResults(String email){
@@ -113,6 +137,8 @@ public class HistoryFragment extends Fragment {
         }
         cursor.close();
         database.close();
+        Collections.sort(results, Collections.reverseOrder());
         return results;
     }
+
 }

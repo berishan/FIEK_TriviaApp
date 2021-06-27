@@ -1,21 +1,20 @@
 package com.unipr.triviaapp.entities;
 
-public class Leaderboard {
+public class Leaderboard implements Comparable<Leaderboard> {
 
     private Integer id;
-    private String user;
-    private String email;
-    private String score;
-    private String difficulty;
-    private String category;
+    private String fullName;
+    private int highScore;
 
-    public Leaderboard(Integer id, String user, String email, String score, String difficulty, String category) {
-        this.id = id;
-        this.user = user;
-        this.email = email;
-        this.score = score;
-        this.difficulty = difficulty;
-        this.category = category;
+
+    public Leaderboard(){
+
+    }
+    public Leaderboard( String user, int score) {
+        this.fullName = user;
+
+        this.highScore = score;
+
     }
 
     public Integer getId() {
@@ -26,43 +25,32 @@ public class Leaderboard {
         this.id = id;
     }
 
-    public String getUser() {
-        return user;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getEmail() {
-        return email;
+    public int getHighScore() {
+        return highScore;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
     }
 
-    public String getScore() {
-        return score;
-    }
 
-    public void setScore(String score) {
-        this.score = score;
-    }
+    @Override
+    public int compareTo(Leaderboard o) {
+        if(o.getHighScore() > this.getHighScore()){
+            return 1;
+        }
+        else if (o.getHighScore() < this.getHighScore()) {
+            return -1;
+        }
 
-    public String getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
+        return 0;
     }
 }
