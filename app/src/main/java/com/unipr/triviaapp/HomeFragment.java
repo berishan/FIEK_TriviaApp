@@ -82,7 +82,6 @@ public class HomeFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
 
-
         if (this.getArguments() == null) {
             name = "User";
         } else {

@@ -102,7 +102,10 @@ public class CreateQuizFragment extends Fragment {
         btnCreateQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), SubmitQuizActivity.class));
+                Intent intent = new Intent(getContext(), SubmitQuizActivity.class);
+                intent.putExtra(ExtrasHelper.EMAIL, email);
+
+                startActivity(intent);
             }
         });
 

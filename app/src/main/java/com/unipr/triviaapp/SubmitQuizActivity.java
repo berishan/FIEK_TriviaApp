@@ -1,8 +1,11 @@
 package com.unipr.triviaapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +18,7 @@ import com.unipr.triviaapp.db.DBConfig;
 import com.unipr.triviaapp.db.DatabaseHelper;
 import com.unipr.triviaapp.entities.Question;
 import com.unipr.triviaapp.entities.Quiz;
+import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -28,10 +32,13 @@ public class SubmitQuizActivity extends AppCompatActivity {
 
     EditText etQuestion, etCorrectAnswer;
     EditText etIncorrectAnswer1, etIncorrectAnswer2, etIncorrectAnswer3;
+    EditText etName;
 
     Button btnNext, btnFinish;
 
     List<Question> questionList;
+
+    String email;
 
 
     @Override
@@ -45,6 +52,10 @@ public class SubmitQuizActivity extends AppCompatActivity {
         etIncorrectAnswer1 = findViewById(R.id.etIncorrectAnswer1);
         etIncorrectAnswer2 = findViewById(R.id.etIncorrectAnswer2);
         etIncorrectAnswer3 = findViewById(R.id.etIncorrectAnswer3);
+
+        etName = new EditText(SubmitQuizActivity.this);
+
+        email = getIntent().getStringExtra(ExtrasHelper.EMAIL);
 
         btnNext = findViewById(R.id.buttonNext);
         btnFinish = findViewById(R.id.buttonFinish);
@@ -65,15 +76,36 @@ public class SubmitQuizActivity extends AppCompatActivity {
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(requiredFieldsAreFilled()){
+                if(questionList.size() == 0){
+                    Toast.makeText(SubmitQuizActivity.this, "Quiz must have questions!", Toast.LENGTH_SHORT).show();
+                } else if(requiredFieldsAreFilled()){
                     saveQuestion();
-                    saveQuiz();
+                    getInfo();
+
                 }
             }
         });
 
     }
 
+
+    private void getInfo(){
+        new AlertDialog.Builder(SubmitQuizActivity.this)
+                .setTitle("Create Quiz")
+                .setMessage("What do you want to name your quiz?")
+                .setView(etName)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!etName.getText().toString().equals("")){
+                            saveQuiz();
+                        }
+                        return;
+                    }
+                })
+                .create()
+                .show();
+   }
 
     private boolean requiredFieldsAreFilled(){
         if (etQuestion.getText().toString().equals("")) {
@@ -128,12 +160,13 @@ public class SubmitQuizActivity extends AppCompatActivity {
         etIncorrectAnswer2.setText("");
         etIncorrectAnswer3.setText("");
 
+        etQuestion.requestFocus();
     }
 
     private void saveQuiz(){
         Quiz quiz = new Quiz();
 
-        quiz.setName("Default");
+        quiz.setName(etName.getText().toString());
         quiz.setQuestions(questionList);
         quiz.setDateCreated(
                 new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.ITALY)
@@ -144,7 +177,7 @@ public class SubmitQuizActivity extends AppCompatActivity {
         SQLiteDatabase database = new DatabaseHelper(SubmitQuizActivity.this).getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(DBConfig.USER, "berishanora24.nb@gmail.com");
+        values.put(DBConfig.USER, email);
         values.put(DBConfig.QUIZ_NAME, quiz.getName());
         values.put(DBConfig.QUIZ_DATE, quiz.getDateCreated());
         values.put(DBConfig.QUIZ_QUESTIONS, quiz.getNumberOfQuestions());
@@ -172,6 +205,8 @@ public class SubmitQuizActivity extends AppCompatActivity {
                             val);
                     if(questionId < 0){
                         Toast.makeText(SubmitQuizActivity.this, "Couldn't save results!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        startActivity(new Intent(SubmitQuizActivity.this, CoreActivity.class));
                     }
                 }
             }
