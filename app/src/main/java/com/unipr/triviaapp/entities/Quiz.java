@@ -4,9 +4,31 @@ import java.util.List;
 
 public class Quiz {
 
+    private String userEmail;
     private Integer id;
     private String name;
     private List<Question> questions;
+    private Integer numberOfQuestions;
+    public Quiz(){
+
+    }
+
+    public Quiz(String userEmail, Integer id, String name, List<Question> questions, Integer numberOfQuestions, String dateCreated) {
+        this.userEmail = userEmail;
+        this.id = id;
+        this.name = name;
+        this.questions = questions;
+        this.numberOfQuestions = numberOfQuestions;
+        this.dateCreated = dateCreated;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
     public String getName() {
         return name;
@@ -24,9 +46,15 @@ public class Quiz {
         this.questions = questions;
     }
 
-    public int getNumberOfQuestions(){
-        return this.questions.size();
+    public int getNumberOfQuestions()
+    {
+        return this.numberOfQuestions;
     }
+
+    public void setNumberOfQuestions(int numberOfQuestions){
+        this.numberOfQuestions = numberOfQuestions;
+    }
+
     public String getDateCreated() {
         return dateCreated;
     }
@@ -44,4 +72,7 @@ public class Quiz {
     public void setId(Integer id) {
         this.id = id;
     }
+
+
+
 }

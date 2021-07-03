@@ -24,12 +24,8 @@ import com.unipr.triviaapp.db.DatabaseHelper;
 import com.unipr.triviaapp.entities.User;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class ResultActivity extends AppCompatActivity {
@@ -143,11 +139,10 @@ public class ResultActivity extends AppCompatActivity {
         values.put(DBConfig.CATEGORY, category);
         values.put(DBConfig.DATE,  new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.ITALY).format(Calendar.getInstance().getTime()));
         try {
-            long id = database.insert(DBConfig.TABLE_NAME, null, values );
+            long id = database.insert(DBConfig.RESULT_TABLE_NAME, null, values );
             if(id < 0){
                 Toast.makeText(ResultActivity.this, "Couldn't save results!", Toast.LENGTH_SHORT).show();
             }
-
         }catch (Exception e){
             Toast.makeText(ResultActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         } finally {

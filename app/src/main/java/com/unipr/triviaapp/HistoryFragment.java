@@ -108,7 +108,7 @@ public class HistoryFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         SQLiteDatabase database = new DatabaseHelper(getContext()).getWritableDatabase();
-                        database.delete(DBConfig.TABLE_NAME, " user = " + "'" + email + "';", null);
+                        database.delete(DBConfig.RESULT_TABLE_NAME, " user = " + "'" + email + "';", null);
                         database.close();
                         if (getActivity() != null) {
                             getActivity().runOnUiThread(new Runnable() {
@@ -136,7 +136,7 @@ public class HistoryFragment extends Fragment {
             results.add(new Result(
                     cursor.getInt(0),
                     cursor.getString(1),
-                    cursor.getInt(2) + "",
+                    cursor.getInt(4) + "",
                     cursor.getInt(3) + "",
                     cursor.getInt(4) + "",
                     cursor.getString(5),
