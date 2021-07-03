@@ -92,7 +92,6 @@ public class QuestionActivity extends AppCompatActivity {
         category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
         numberOfQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS, 0);
         mUserName = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
-        tvMainCountdown = findViewById(R.id.tvMainCountdown);
 
         new QuestionActivityAsync().execute();
 

@@ -3,6 +3,7 @@ package com.unipr.triviaapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import android.widget.TextView;
+
+import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,8 +51,17 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
+                SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                String checkbox = preferences.getString("remember", "");
+                if(checkbox.equals("true")){
+                    startActivity(new Intent(MainActivity.this, CoreActivity.class));
+                    finish();
+
+                } else{
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                }
+
             }
         }, SPLASH_SCREEN);
     }
