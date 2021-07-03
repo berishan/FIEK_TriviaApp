@@ -1,49 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/tvDateTaken"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Date taken"
-        android:textStyle="bold"
-        android:id="@+id/tvDateTaken"/>
+        android:textStyle="bold" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Difficulty"
-        android:textStyle="bold"
         android:id="@+id/tvDifficulty"
-        android:layout_below="@id/tvDateTaken"/>
-
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category"
-        android:textStyle="bold"
-        android:id="@+id/tvCategory"
-        android:layout_below="@id/tvDifficulty"/>
+        android:layout_below="@id/tvDateTaken"
+        android:text="Difficulty"
+        android:textStyle="bold" />
+
 
     <TextView
+        android:id="@+id/tvCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDifficulty"
+        android:text="Category"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/questionsTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvCategory"
         android:text="Questions"
-        android:textStyle="bold"
-        android:id="@+id/questionsTv"
-       />
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/scoresTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/questionsTv"
-        android:textStyle="bold"
         android:text="Score"
-        android:id="@+id/scoresTv"/>
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

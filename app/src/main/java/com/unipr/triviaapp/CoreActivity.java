@@ -135,6 +135,12 @@ public class CoreActivity extends AppCompatActivity {
                             bundle2.putString(ExtrasHelper.EMAIL, email);
                             bundle2.putString(ExtrasHelper.FULL_NAME, name);
                             break;
+                        case R.id.nav_quiz:
+                            Bundle bundle3 = new Bundle();
+                            selectedFragment = new CreateQuizFragment();
+                            bundle3.putString(ExtrasHelper.EMAIL, email);
+                            bundle3.putString(ExtrasHelper.FULL_NAME, name);
+                            break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
                             selectedFragment).commit();
