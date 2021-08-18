@@ -104,46 +104,13 @@ public class CreateQuizFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SubmitQuizActivity.class);
                 intent.putExtra(ExtrasHelper.EMAIL, email);
-
                 startActivity(intent);
             }
         });
 
 
 
-
-
         super.onViewCreated(view, savedInstanceState);
-    }
-
-    private List<Quiz> readQuizzes(String email) {
-
-
-
-
-        Question question = new Question();
-
-        question.setQuestion("How are you?");
-        question.setOptionOne("Fine.");
-        question.setOptionTwo("Good.");
-        question.setOptionThree("Great.");
-        question.setOptionFour("Awesome.");
-        question.setCorrectAnswer(1);
-
-        List<Question> questions = new ArrayList<>();
-        questions.add(question);
-
-        List<Quiz> quizzes = new ArrayList<>();
-
-        Quiz quiz = new Quiz();
-        quiz.setId(342);
-        quiz.setName("Quiz 1");
-        quiz.setDateCreated("Dje h3h3");
-
-        quiz.setQuestions(questions);
-        quizzes.add(quiz);
-
-        return quizzes;
     }
 
     private List<Quiz> readFromDB(String email){
