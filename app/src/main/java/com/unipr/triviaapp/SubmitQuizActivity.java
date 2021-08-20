@@ -143,14 +143,43 @@ public class SubmitQuizActivity extends AppCompatActivity {
 
         question.setQuestion(etQuestion.getText().toString());
 
-        question.setOptionOne(etCorrectAnswer.getText().toString());
-        question.setOptionTwo(etIncorrectAnswer1.getText().toString());
-        question.setOptionThree(etIncorrectAnswer2.getText().toString());
-        question.setOptionFour(etIncorrectAnswer3.getText().toString());
+        int rand = (int)(1 + (Math.random() * 4));
 
-        question.setCorrectAnswer(1);
+        switch (rand) {
+            case 1:
+                question.setOptionOne(etCorrectAnswer.getText().toString());
+                question.setOptionTwo(etIncorrectAnswer1.getText().toString());
+                question.setOptionThree(etIncorrectAnswer2.getText().toString());
+                question.setOptionFour(etIncorrectAnswer3.getText().toString());
+                question.setCorrectAnswer(1);
+                questionList.add(question);
+                break;
+            case 2:
+                question.setOptionOne(etIncorrectAnswer1.getText().toString());
+                question.setOptionTwo(etCorrectAnswer.getText().toString());
+                question.setOptionThree(etIncorrectAnswer2.getText().toString());
+                question.setOptionFour(etIncorrectAnswer3.getText().toString());
+                question.setCorrectAnswer(2);
+                questionList.add(question);
+                break;
+            case 3:
+                question.setOptionOne(etIncorrectAnswer1.getText().toString());
+                question.setOptionTwo(etIncorrectAnswer2.getText().toString());
+                question.setOptionThree(etCorrectAnswer.getText().toString());
+                question.setOptionFour(etIncorrectAnswer3.getText().toString());
+                question.setCorrectAnswer(3);
+                questionList.add(question);
+                break;
+            case 4:
+                question.setOptionOne(etIncorrectAnswer1.getText().toString());
+                question.setOptionTwo(etIncorrectAnswer2.getText().toString());
+                question.setOptionThree(etIncorrectAnswer3.getText().toString());
+                question.setOptionFour(etCorrectAnswer.getText().toString());
+                question.setCorrectAnswer(4);
+                questionList.add(question);
+                break;
+        }
 
-        questionList.add(question);
     }
 
     private void nextQuestion(){

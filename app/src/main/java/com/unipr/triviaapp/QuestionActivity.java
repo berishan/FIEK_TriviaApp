@@ -2,6 +2,8 @@ package com.unipr.triviaapp;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
@@ -17,9 +19,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.gson.Gson;
+import com.unipr.triviaapp.db.DatabaseHelper;
+import com.unipr.triviaapp.db.Queries;
 import com.unipr.triviaapp.entities.ApiResult;
 import com.unipr.triviaapp.entities.Question;
 import com.unipr.triviaapp.entities.QuestionApiEntity;
+import com.unipr.triviaapp.entities.Result;
 import com.unipr.triviaapp.entities.mappers.QuestionMapper;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
@@ -28,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -93,7 +99,16 @@ public class QuestionActivity extends AppCompatActivity {
         numberOfQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS, 0);
         mUserName = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
 
-        new QuestionActivityAsync().execute();
+        boolean isPrivateQuiz = getIntent().getBooleanExtra(ExtrasHelper.PRIVATE_QUIZ, false);
+        if(isPrivateQuiz){
+            long quizId = getIntent().getLongExtra(ExtrasHelper.QUIZ_ID, 0L);
+            if(quizId > 0){
+                getQuestionsFromDb(quizId);
+            }
+
+        } else {
+            new QuestionActivityAsync().execute();
+        }
 
 
     }
@@ -339,6 +354,30 @@ public class QuestionActivity extends AppCompatActivity {
         timeLeftInMillis = 30000;
     }
 
+    private void getQuestionsFromDb(long quizId){
+        SQLiteDatabase database = new DatabaseHelper(QuestionActivity.this).getReadableDatabase();
+        Cursor cursor = database.rawQuery(Queries.GET_QUESTIONS, new String[]{String.valueOf(quizId)});
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            mQuestionsList.add(new Question(
+                    cursor.getInt(0),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getInt(7)
+            ));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        database.close();
+        Collections.shuffle(mQuestionsList);
+        setUI();
+        progressBar.setMax(mQuestionsList.size());
+        setQuestion();
+    }
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -409,6 +448,8 @@ public class QuestionActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
 
 
 }

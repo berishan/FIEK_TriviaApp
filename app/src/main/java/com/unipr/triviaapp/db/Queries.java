@@ -36,4 +36,6 @@ public class Queries {
 
     public static final String GET_QUIZZES = "SELECT * FROM quizzes WHERE user = ?";
 
+    public static final String GET_QUESTIONS = "SELECT * FROM questions WHERE quiz_id = ?";
+
 }

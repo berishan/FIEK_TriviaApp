@@ -43,7 +43,7 @@ public class ResultActivity extends AppCompatActivity {
     private int highScore;
 
     private String username, category, difficulty;
-    private int multiplier;
+    private int multiplier = 1;
     private int totalQuestions, correctAnswers, score;
 
     @Override
@@ -55,17 +55,18 @@ public class ResultActivity extends AppCompatActivity {
          category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
          difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);
 
-
-        switch (difficulty){
-            case "Medium":
-                multiplier = 2;
-                break;
-            case "Hard":
-                multiplier = 3;
-                break;
-            default:
-                multiplier = 1;
-        }
+         if(difficulty != null) {
+             switch (difficulty) {
+                 case "Medium":
+                     multiplier = 2;
+                     break;
+                 case "Hard":
+                     multiplier = 3;
+                     break;
+                 default:
+                     multiplier = 1;
+             }
+         }
 
 
         totalQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS,0);
@@ -129,24 +130,26 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void saveToDb() {
-        SQLiteDatabase database = new DatabaseHelper(ResultActivity.this).getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DBConfig.USER, email);
-        values.put(DBConfig.NUMBER_OF_QUESTIONS, totalQuestions);
-        values.put(DBConfig.CORRECT_ANSWERS, correctAnswers);
-        values.put(DBConfig.POINTS, score);
-        values.put(DBConfig.DIFFICULTY, difficulty);
-        values.put(DBConfig.CATEGORY, category);
-        values.put(DBConfig.DATE,  new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.ITALY).format(Calendar.getInstance().getTime()));
-        try {
-            long id = database.insert(DBConfig.RESULT_TABLE_NAME, null, values );
-            if(id < 0){
-                Toast.makeText(ResultActivity.this, "Couldn't save results!", Toast.LENGTH_SHORT).show();
+        if(difficulty != null) {
+            SQLiteDatabase database = new DatabaseHelper(ResultActivity.this).getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(DBConfig.USER, email);
+            values.put(DBConfig.NUMBER_OF_QUESTIONS, totalQuestions);
+            values.put(DBConfig.CORRECT_ANSWERS, correctAnswers);
+            values.put(DBConfig.POINTS, score);
+            values.put(DBConfig.DIFFICULTY, difficulty);
+            values.put(DBConfig.CATEGORY, category);
+            values.put(DBConfig.DATE, new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.ITALY).format(Calendar.getInstance().getTime()));
+            try {
+                long id = database.insert(DBConfig.RESULT_TABLE_NAME, null, values);
+                if (id < 0) {
+                    Toast.makeText(ResultActivity.this, "Couldn't save results!", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                Toast.makeText(ResultActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            } finally {
+                database.close();
             }
-        }catch (Exception e){
-            Toast.makeText(ResultActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        } finally {
-            database.close();
         }
     }
 }

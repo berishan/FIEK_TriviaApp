@@ -11,4 +11,6 @@ public class ExtrasHelper {
     public static final String DIFFICULTY = "DIFFICULTY";
     public static final String CATEGORY = "CATEGORY";
     public static final String FIRST_TIME = "FIRST_TIME";
+    public static final String PRIVATE_QUIZ = "PRIVATE_QUIZ";
+    public static final String QUIZ_ID = "QUIZ_ID";
 }
