@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.unipr.triviaapp.QuestionActivity;
 import com.unipr.triviaapp.R;
 import com.unipr.triviaapp.db.DBConfig;
@@ -90,10 +94,7 @@ public class QuizAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, QuestionActivity.class);
                 intent.putExtra(ExtrasHelper.PRIVATE_QUIZ, true);
                 Integer id = quizList.get(position).getId();
-                int test = id.intValue();
-                long testi =  test;
-                Long Test =  testi;
-                intent.putExtra(ExtrasHelper.QUIZ_ID,  Test);
+                intent.putExtra(ExtrasHelper.QUIZ_ID,  convertIntToLong(id));
                 context.startActivity(intent);
             }
         });
@@ -105,7 +106,10 @@ public class QuizAdapter extends BaseAdapter {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        setQuizList(readFromDB("berishanora24.nb@gmai.com"));
+                        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                        String email = firebaseUser.getEmail();
+                        setQuizList(readFromDB(email));
                         notifyDataSetChanged();
                     }
                 });
@@ -115,6 +119,10 @@ public class QuizAdapter extends BaseAdapter {
 
         return convertView;
 
+    }
+
+    private Long convertIntToLong(int number) {
+        return (long) number;
     }
 
     private void deleteQuiz(int position){

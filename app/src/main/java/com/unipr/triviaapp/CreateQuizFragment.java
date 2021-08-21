@@ -96,7 +96,7 @@ public class CreateQuizFragment extends Fragment {
         }
 
         quizzesListView.setAdapter(adapter);
-        adapter.setQuizList(readFromDB("berishanora24.nb@gmail.com"));
+        adapter.setQuizList(readFromDB(email));
         adapter.notifyDataSetChanged();
 
         btnCreateQuiz.setOnClickListener(new View.OnClickListener() {
@@ -107,8 +107,6 @@ public class CreateQuizFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
 
         super.onViewCreated(view, savedInstanceState);
     }

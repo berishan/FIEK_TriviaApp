@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 if(checkbox.equals("true")){
                     startActivity(new Intent(MainActivity.this, CoreActivity.class));
                     finish();
-
                 } else{
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
