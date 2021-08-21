@@ -32,12 +32,14 @@
                 android:gravity="center"
                 android:textColor="@color/cardview_dark_background"
                 android:textSize="22sp"/>
-            <ImageView
-                android:id="@+id/ivImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/common_google_signin_btn_icon_dark_normal"/>
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@android:color/holo_blue_light"
+            android:layout_marginTop="16dp"
+            android:src="@android:drawable/ic_menu_help"/>
             <LinearLayout
                 android:id="@+id/llProgressDetails"
                 android:layout_width="match_parent"
