@@ -25,5 +25,4 @@ public class DBConfig {
     public static final String CORRECT_ANSWER = "correct_answer";
 
 
-
 }

@@ -60,7 +60,7 @@
                 android:layout_margin="8dp"
                 android:background="@drawable/edit_text_style"
                 android:hint="@string/password_hint"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColor="@color/cardview_dark_background"

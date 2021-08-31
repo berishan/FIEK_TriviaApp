@@ -14,8 +14,6 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.unipr.triviaapp.QuestionActivity;
 import com.unipr.triviaapp.R;
 import com.unipr.triviaapp.db.DBConfig;
@@ -24,14 +22,13 @@ import com.unipr.triviaapp.db.Queries;
 import com.unipr.triviaapp.entities.Quiz;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 import com.unipr.triviaapp.view_holders.QuizViewHolder;
-import com.unipr.triviaapp.view_holders.ResultsViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuizAdapter extends BaseAdapter {
     Context context;
-    List<Quiz> quizList = new ArrayList();
+    List<Quiz> quizList = new ArrayList<>();
 
     public QuizAdapter(Context context) {
         this.context = context;
@@ -52,7 +49,6 @@ public class QuizAdapter extends BaseAdapter {
     public void setQuizList(List<Quiz> quizList) {
         this.quizList = quizList;
     }
-
 
 
     @Override
@@ -94,7 +90,7 @@ public class QuizAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, QuestionActivity.class);
                 intent.putExtra(ExtrasHelper.PRIVATE_QUIZ, true);
                 Integer id = quizList.get(position).getId();
-                intent.putExtra(ExtrasHelper.QUIZ_ID,  convertIntToLong(id));
+                intent.putExtra(ExtrasHelper.QUIZ_ID, convertIntToLong(id));
                 context.startActivity(intent);
             }
         });
@@ -125,14 +121,14 @@ public class QuizAdapter extends BaseAdapter {
         return (long) number;
     }
 
-    private void deleteQuiz(int position){
+    private void deleteQuiz(int position) {
         Quiz quiz = quizList.get(position);
         SQLiteDatabase database = new DatabaseHelper(getContext()).getWritableDatabase();
         database.delete(DBConfig.QUIZZES_TABLE_NAME, " id = " + "'" + quiz.getId() + "';", null);
         database.close();
     }
 
-    private List<Quiz> readFromDB(String email){
+    private List<Quiz> readFromDB(String email) {
         List<Quiz> quizzes = new ArrayList<>();
         SQLiteDatabase database = new DatabaseHelper(this.getContext()).getReadableDatabase();
         Cursor cursor = database.rawQuery(Queries.GET_QUIZZES, new String[]{email});

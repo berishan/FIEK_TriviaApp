@@ -7,10 +7,11 @@ public class Leaderboard implements Comparable<Leaderboard> {
     private int highScore;
 
 
-    public Leaderboard(){
+    public Leaderboard() {
 
     }
-    public Leaderboard( String user, int score) {
+
+    public Leaderboard(String user, int score) {
         this.fullName = user;
 
         this.highScore = score;
@@ -44,10 +45,9 @@ public class Leaderboard implements Comparable<Leaderboard> {
 
     @Override
     public int compareTo(Leaderboard o) {
-        if(o.getHighScore() > this.getHighScore()){
+        if (o.getHighScore() > this.getHighScore()) {
             return 1;
-        }
-        else if (o.getHighScore() < this.getHighScore()) {
+        } else if (o.getHighScore() < this.getHighScore()) {
             return -1;
         }
 

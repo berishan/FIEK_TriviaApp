@@ -16,7 +16,7 @@ import java.util.List;
 public class LeaderboardAdapter extends BaseAdapter {
 
     Context context;
-    List<Leaderboard> leaderboards= new ArrayList();
+    List<Leaderboard> leaderboards = new ArrayList<>();
 
     public Context getContext() {
         return context;
@@ -62,7 +62,7 @@ public class LeaderboardAdapter extends BaseAdapter {
             leaderboardViewHolder = new LeaderboardViewHolder(convertView);
             convertView.setTag(leaderboardViewHolder);
         } else {
-            leaderboardViewHolder = (LeaderboardViewHolder)convertView.getTag();
+            leaderboardViewHolder = (LeaderboardViewHolder) convertView.getTag();
         }
 
         leaderboardViewHolder
