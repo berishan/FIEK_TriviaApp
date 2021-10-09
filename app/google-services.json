@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "2632389519",
+    "firebase_url": "https://fiek-trivia-app-default-rtdb.firebaseio.com",
     "project_id": "fiek-trivia-app",
     "storage_bucket": "fiek-trivia-app.appspot.com"
   },

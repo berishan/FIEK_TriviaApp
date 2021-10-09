@@ -4,15 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/gradient2">
 
-    <TextView
+    <ImageView
+        android:id="@+id/iwLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/twAppName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/twAppName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/orange_juice"
+        android:gravity="center_horizontal"
+        android:text="@string/fiek_triviaapp"
+        android:textAlignment="center"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/twAppSlogan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iwLogo" />
+
+    <TextView
+        android:id="@+id/twAppSlogan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/antic"
+        android:gravity="center_horizontal"
+        android:text="@string/test_your_knowledge"
+        android:textAlignment="center"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/twAppName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,110 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:background="@drawable/gradient_background">
-
-    <ImageView
-        android:id="@+id/owLogo"
-        android:layout_width="160dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/logo" />
-
-<LinearLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:orientation="vertical"
-    android:gravity="center_vertical"
-    android:layout_marginTop="130dp"
-    android:padding="16dp">
+    android:layout_gravity="center"
+    android:background="@drawable/gradient2">
 
-
-
-    <EditText
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:imeOptions="actionNext"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/cardview_dark_background"
-        android:textColorHint="@color/cardview_dark_background"
-        android:id="@+id/etEmail"
-        android:hint="@string/email_hint" />
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:textColor="@color/cardview_dark_background"
-        android:textColorHint="@color/cardview_dark_background"
-        android:id="@+id/etPassword"
-        android:hint="@string/password_hint"/>
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_bg"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:weightSum="10">
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:textSize="28sp"
-            android:textColor="@color/cardview_dark_background"
-            android:textColorHint="@color/cardview_dark_background"
-            android:backgroundTint="@color/white"
-            android:id="@+id/btnLogin"
-            android:layout_gravity="end"
-            android:layout_weight="1" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/forgot_password"
-            android:id="@+id/twForgotPassword"
-            android:textSize="20sp"
-            android:textColor="@color/cardview_dark_background"
-            android:textColorHint="@color/cardview_dark_background"
-            android:paddingLeft="10dp"
-            android:paddingTop="15dp"
-            android:layout_gravity="end"
-            android:layout_weight="2"/>
+            android:layout_weight="4"
+            android:contentDescription="@string/logo"
+            android:padding="10dp"
+            android:src="@drawable/logo" />
 
-        <TextView
-            android:id="@+id/twRegister"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:paddingTop="15dp"
-            android:text="@string/register"
-            android:paddingEnd="25dp"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/cardview_dark_background"
-            android:textColorHint="@color/cardview_dark_background"
-            android:textSize="20sp"
-            android:paddingRight="10dp" />
+            android:layout_weight="4"
+            android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/edit_text_style"
+                android:hint="@string/email_hint"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:textColor="@color/cardview_dark_background"
+                android:textColorHint="@color/cardview_dark_background"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/edit_text_style"
+                android:hint="@string/password_hint"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:textColor="@color/cardview_dark_background"
+                android:textColorHint="@color/cardview_dark_background"
+                android:textSize="18sp" />
+
+            <CheckBox
+                android:id="@+id/cbRememberMe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:imeOptions="actionNext"
+                android:padding="10dp"
+                android:text="Remember me?"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/twForgotPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/forgot_password"
+                android:textAlignment="textEnd"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/button_style"
+                android:imeOptions="actionDone"
+                android:padding="10dp"
+                android:text="@string/login"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/twRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/don_t_have_an_account"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 
 
-</LinearLayout>
 </RelativeLayout>

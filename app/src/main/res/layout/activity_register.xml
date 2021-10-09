@@ -1,109 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:padding="16dp"
-    android:gravity="center_vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="14dp"
+    android:background="@drawable/gradient2">
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_bg"
+        android:layout_centerInParent="true"
+        android:id="@+id/progressBar1"/>
 
-    <RelativeLayout
+
+    <LinearLayout
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register_form_title"
-            android:textSize="30sp"
-            android:id="@+id/twTitle"
-            android:padding="20dp"
-            android:layout_centerHorizontal="true">
-        </TextView>
-
-        <RelativeLayout
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp"
+        android:weightSum="10">
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_below="@id/twTitle">
+            android:layout_margin="50dp"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvName"
-                android:textSize="22sp"
-                android:text="@string/name" />
+            android:layout_weight="5"
+            android:padding="10dp"
+            android:src="@drawable/logo"
+            android:contentDescription="@string/logo" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/please_fill_out_the_form"
+            android:textAlignment="viewStart"
+            android:textSize="16sp"
+            android:paddingLeft="10dp"
+            android:layout_marginLeft="8dp"
+            android:textStyle="bold"
+            android:textColor="@color/cardview_dark_background"
+            android:gravity="start"
+            android:paddingStart="10dp"
+            android:layout_marginStart="8dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_margin="8dp"
+            android:hint="@string/name"
+            android:textColorHint="@color/cardview_dark_background"
+            android:textColor="@color/cardview_dark_background"
+            android:inputType="textPersonName"
+            android:id="@+id/etName"
+            android:textSize="18sp"
+            android:background="@drawable/edit_text_style" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_margin="8dp"
+            android:hint="@string/last_name"
+            android:textColorHint="@color/cardview_dark_background"
+            android:textColor="@color/cardview_dark_background"
+            android:inputType="textPersonName"
+            android:id="@+id/etLastname"
+            android:textSize="18sp"
+            android:background="@drawable/edit_text_style" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_margin="8dp"
+            android:hint="@string/email_hint"
+            android:textColorHint="@color/cardview_dark_background"
+            android:textColor="@color/cardview_dark_background"
+            android:inputType="textEmailAddress"
+            android:id="@+id/etEmail"
+            android:textSize="18sp"
+            android:background="@drawable/edit_text_style" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_margin="8dp"
+            android:hint="@string/password_hint"
+            android:textColorHint="@color/cardview_dark_background"
+            android:textColor="@color/cardview_dark_background"
+            android:inputType="textPassword"
+            android:id="@+id/etPassword"
+            android:textSize="18sp"
+            android:background="@drawable/edit_text_style" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_style"
+            android:text="@string/registerBtnText"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:id="@+id/btnRegister"
+            android:layout_margin="8dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:paddingRight="10dp"
+            android:text="@string/already_have_an_account"
+            android:textAlignment="textEnd"
+            android:textSize="14sp"
+            android:textColor="@color/cardview_dark_background"
+            android:textStyle="bold"
+            android:id="@+id/twLogin"
+            android:paddingEnd="10dp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvName"
-                android:id="@+id/etName"
-                android:inputType="textCapWords"
-                android:imeOptions="actionNext" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvLastName"
-                android:textSize="22sp"
-                android:text="@string/last_name"
-                android:layout_below="@id/etName" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvLastName"
-                android:id="@+id/etLastname"
-                android:inputType="textCapWords"
-                android:imeOptions="actionNext" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvEmail"
-                android:textSize="22sp"
-                android:text="@string/email"
-                android:layout_below="@id/etLastname" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvEmail"
-                android:id="@+id/etEmail"
-                android:inputType="textEmailAddress"
-                android:imeOptions="actionNext" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvPassword"
-                android:textSize="22sp"
-                android:text="@string/password"
-                android:layout_below="@id/etEmail" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvPassword"
-                android:id="@+id/etPassword"
-                android:inputType="textPassword"
-                android:imeOptions="actionDone" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:id="@+id/btnRegister"
-                android:text="@string/register_button"
-                android:layout_below="@id/etPassword"
-                android:layout_alignParentLeft="true"
-                android:padding="10dp"
-                android:layout_alignParentStart="true" />
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-
-
+    </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
