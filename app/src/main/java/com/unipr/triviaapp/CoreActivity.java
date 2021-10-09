@@ -134,6 +134,14 @@ public class CoreActivity extends AppCompatActivity {
                             selectedFragment = new LeaderboardFragment();
                             bundle2.putString(ExtrasHelper.EMAIL, email);
                             bundle2.putString(ExtrasHelper.FULL_NAME, name);
+                            selectedFragment.setArguments(bundle2);
+                            break;
+                        case R.id.nav_quiz:
+                            Bundle bundle3 = new Bundle();
+                            selectedFragment = new CreateQuizFragment();
+                            bundle3.putString(ExtrasHelper.EMAIL, email);
+                            bundle3.putString(ExtrasHelper.FULL_NAME, name);
+                            selectedFragment.setArguments(bundle3);
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
@@ -163,7 +171,6 @@ public class CoreActivity extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-
                 break;
                 // TODO create quiz later
         }

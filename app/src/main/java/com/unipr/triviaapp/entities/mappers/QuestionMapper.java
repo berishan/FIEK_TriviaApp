@@ -8,7 +8,7 @@ public class QuestionMapper {
     public static Question mapApiResultToQuestion(ApiResult apiResult) {
         Question question = new Question();
         question.setQuestion(apiResult.getQuestion());
-        int rand = (int)(1 + (Math.random() * 4));
+        int rand = (int) (1 + (Math.random() * 4));
 
         switch (rand) {
             case 1:

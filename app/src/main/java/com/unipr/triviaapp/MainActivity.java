@@ -18,7 +18,7 @@ import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int SPLASH_SCREEN = 5000;
+    private static final int SPLASH_SCREEN = 4000;
     private Animation topAnimation, bottomAnimation;
 
     private ImageView image;
@@ -55,12 +55,10 @@ public class MainActivity extends AppCompatActivity {
                 String checkbox = preferences.getString("remember", "");
                 if(checkbox.equals("true")){
                     startActivity(new Intent(MainActivity.this, CoreActivity.class));
-                    finish();
-
                 } else{
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    finish();
                 }
+                finish();
 
             }
         }, SPLASH_SCREEN);

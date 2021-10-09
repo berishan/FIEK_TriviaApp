@@ -73,8 +73,6 @@ public class ResultAdapter extends BaseAdapter {
         viewHolder.getDateTaken().setText("Date: " + resultList.get(position).getDate());
 
 
-
-
         return convertView;
     }
 }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ApiResult{
+public class ApiResult {
     @SerializedName("category")
     public String category;
     @SerializedName("type")

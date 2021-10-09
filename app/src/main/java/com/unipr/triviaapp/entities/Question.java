@@ -8,6 +8,9 @@ public class Question {
     private String optionTwo;
     private String optionThree;
     private String optionFour;
+    private int correctAnswer;
+    private Integer quizId;
+
 
     public Question() {
     }
@@ -78,5 +81,11 @@ public class Question {
         this.correctAnswer = correctAnswer;
     }
 
-    private int correctAnswer;
+    public Integer getQuizId() {
+        return quizId;
+    }
+
+    public void setQuizId(Integer quizId) {
+        this.quizId = quizId;
+    }
 }
