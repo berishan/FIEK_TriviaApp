@@ -18,6 +18,10 @@ public class LeaderboardAdapter extends BaseAdapter {
     Context context;
     List<Leaderboard> leaderboards = new ArrayList<>();
 
+    public LeaderboardAdapter(Context context) {
+        this.context = context;
+    }
+
     public Context getContext() {
         return context;
     }
@@ -33,11 +37,6 @@ public class LeaderboardAdapter extends BaseAdapter {
     public void setLeaderboards(List<Leaderboard> leaderboards) {
         this.leaderboards = leaderboards;
     }
-
-    public LeaderboardAdapter(Context context) {
-        this.context = context;
-    }
-
 
     @Override
     public int getCount() {

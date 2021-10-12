@@ -10,6 +10,14 @@ public class ResultsViewHolder {
 
     TextView dateTaken, score, category, difficulty, questions;
 
+    public ResultsViewHolder(View view) {
+        score = view.findViewById(R.id.scoresTv);
+        difficulty = view.findViewById(R.id.tvDifficulty);
+        questions = view.findViewById(R.id.questionsTv);
+        category = view.findViewById(R.id.tvCategory);
+        dateTaken = view.findViewById(R.id.tvDateTaken);
+    }
+
     public TextView getDateTaken() {
         return dateTaken;
     }
@@ -48,13 +56,5 @@ public class ResultsViewHolder {
 
     public void setQuestions(TextView questions) {
         this.questions = questions;
-    }
-
-    public ResultsViewHolder(View view) {
-        score = view.findViewById(R.id.scoresTv);
-        difficulty = view.findViewById(R.id.tvDifficulty);
-        questions = view.findViewById(R.id.questionsTv);
-        category = view.findViewById(R.id.tvCategory);
-        dateTaken = view.findViewById(R.id.tvDateTaken);
     }
 }

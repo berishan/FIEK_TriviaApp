@@ -1,8 +1,5 @@
 package com.unipr.triviaapp;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.unipr.triviaapp.R;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.unipr.triviaapp.db.DBConfig;
 import com.unipr.triviaapp.db.DatabaseHelper;
 import com.unipr.triviaapp.entities.Question;
@@ -21,8 +20,6 @@ import com.unipr.triviaapp.entities.Quiz;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -66,7 +63,7 @@ public class SubmitQuizActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(requiredFieldsAreFilled()){
+                if (requiredFieldsAreFilled()) {
                     saveQuestion();
                     nextQuestion();
                 }
@@ -76,9 +73,9 @@ public class SubmitQuizActivity extends AppCompatActivity {
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(questionList.size() == 0){
+                if (questionList.size() == 0) {
                     Toast.makeText(SubmitQuizActivity.this, "Quiz must have questions!", Toast.LENGTH_SHORT).show();
-                } else if(requiredFieldsAreFilled()){
+                } else if (requiredFieldsAreFilled()) {
                     saveQuestion();
                     getInfo();
 
@@ -89,7 +86,7 @@ public class SubmitQuizActivity extends AppCompatActivity {
     }
 
 
-    private void getInfo(){
+    private void getInfo() {
         new AlertDialog.Builder(SubmitQuizActivity.this)
                 .setTitle("Create Quiz")
                 .setMessage("What do you want to name your quiz?")
@@ -97,7 +94,7 @@ public class SubmitQuizActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(!etName.getText().toString().equals("")){
+                        if (!etName.getText().toString().equals("")) {
                             saveQuiz();
                         }
                         return;
@@ -105,15 +102,15 @@ public class SubmitQuizActivity extends AppCompatActivity {
                 })
                 .create()
                 .show();
-   }
+    }
 
-    private boolean requiredFieldsAreFilled(){
+    private boolean requiredFieldsAreFilled() {
         if (etQuestion.getText().toString().equals("")) {
             etQuestion.setError("Required field!");
             etQuestion.requestFocus();
             return false;
         }
-        if(etCorrectAnswer.getText().toString().equals("")){
+        if (etCorrectAnswer.getText().toString().equals("")) {
             etCorrectAnswer.setError("Required field!");
             etCorrectAnswer.requestFocus();
             return false;
@@ -137,13 +134,13 @@ public class SubmitQuizActivity extends AppCompatActivity {
     }
 
 
-    private void saveQuestion(){
+    private void saveQuestion() {
         Question question = new Question();
         question.setId(questionList.size());
 
         question.setQuestion(etQuestion.getText().toString());
 
-        int rand = (int)(1 + (Math.random() * 4));
+        int rand = (int) (1 + (Math.random() * 4));
 
         switch (rand) {
             case 1:
@@ -182,7 +179,7 @@ public class SubmitQuizActivity extends AppCompatActivity {
 
     }
 
-    private void nextQuestion(){
+    private void nextQuestion() {
         etQuestion.setText("");
         etCorrectAnswer.setText("");
         etIncorrectAnswer1.setText("");
@@ -192,7 +189,7 @@ public class SubmitQuizActivity extends AppCompatActivity {
         etQuestion.requestFocus();
     }
 
-    private void saveQuiz(){
+    private void saveQuiz() {
         Quiz quiz = new Quiz();
 
         quiz.setName(etName.getText().toString());
@@ -200,7 +197,7 @@ public class SubmitQuizActivity extends AppCompatActivity {
         quiz.setDateCreated(
                 new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.ITALY)
                         .format(Calendar.getInstance()
-                                        .getTime()));
+                                .getTime()));
 
         quiz.setNumberOfQuestions(quiz.getQuestions().size());
         SQLiteDatabase database = new DatabaseHelper(SubmitQuizActivity.this).getWritableDatabase();
@@ -215,11 +212,11 @@ public class SubmitQuizActivity extends AppCompatActivity {
             long id = database.insert(DBConfig.QUIZZES_TABLE_NAME,
                     null,
                     values);
-            if(id < 0){
+            if (id < 0) {
                 Toast.makeText(SubmitQuizActivity.this, "Couldn't save results!", Toast.LENGTH_SHORT).show();
             } else {
                 quiz.setId(((int) id));
-                for (Question question: quiz.getQuestions()){
+                for (Question question : quiz.getQuestions()) {
                     ContentValues val = new ContentValues();
                     val.put(DBConfig.QUESTIONS_QUIZ, quiz.getId());
                     val.put(DBConfig.QUESTION, question.getQuestion());
@@ -232,14 +229,14 @@ public class SubmitQuizActivity extends AppCompatActivity {
                     long questionId = database.insert(DBConfig.QUESTIONS_TABLE_NAME,
                             null,
                             val);
-                    if(questionId < 0){
+                    if (questionId < 0) {
                         Toast.makeText(SubmitQuizActivity.this, "Couldn't save results!", Toast.LENGTH_SHORT).show();
                     } else {
                         startActivity(new Intent(SubmitQuizActivity.this, CoreActivity.class));
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(SubmitQuizActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         } finally {
             database.close();

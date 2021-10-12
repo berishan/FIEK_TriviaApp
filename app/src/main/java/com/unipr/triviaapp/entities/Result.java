@@ -1,6 +1,6 @@
 package com.unipr.triviaapp.entities;
 
-public class Result implements Comparable<Result>{
+public class Result implements Comparable<Result> {
 
     private Integer id;
     private String user;
@@ -10,6 +10,17 @@ public class Result implements Comparable<Result>{
     private String date;
     private String difficulty;
     private String category;
+
+    public Result(Integer id, String user, String numberOfQuestions, String correctAnswers, String totalPoints, String date, String difficulty, String category) {
+        this.id = id;
+        this.user = user;
+        this.numberOfQuestions = numberOfQuestions;
+        this.correctAnswers = correctAnswers;
+        this.totalPoints = totalPoints;
+        this.date = date;
+        this.difficulty = difficulty;
+        this.category = category;
+    }
 
     public Integer getId() {
         return id;
@@ -72,17 +83,6 @@ public class Result implements Comparable<Result>{
     }
 
     public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public Result(Integer id, String user, String numberOfQuestions, String correctAnswers, String totalPoints, String date, String difficulty, String category) {
-        this.id = id;
-        this.user = user;
-        this.numberOfQuestions = numberOfQuestions;
-        this.correctAnswers = correctAnswers;
-        this.totalPoints = totalPoints;
-        this.date = date;
-        this.difficulty = difficulty;
         this.category = category;
     }
 

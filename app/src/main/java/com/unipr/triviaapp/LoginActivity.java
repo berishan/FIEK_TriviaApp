@@ -1,8 +1,5 @@
 package com.unipr.triviaapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,26 +10,18 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.unipr.triviaapp.entities.User;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
-import java.util.UUID;
-import java.util.regex.Pattern;
-
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private EditText etEmail, etPassword;
@@ -63,7 +52,7 @@ public class LoginActivity extends AppCompatActivity{
 
 
         String email = getIntent().getStringExtra(ExtrasHelper.EMAIL);
-        if(email != null){
+        if (email != null) {
             etEmail.setText(email);
         }
 
@@ -93,17 +82,15 @@ public class LoginActivity extends AppCompatActivity{
         cbRememberMe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(buttonView.isChecked()){
-                    SharedPreferences sharedPreferences = getSharedPreferences("checkbox",MODE_PRIVATE);
+                if (buttonView.isChecked()) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("remember", "true");
                     editor.apply();
 
 
-
-                }
-                else if(!buttonView.isChecked()){
-                    SharedPreferences sharedPreferences = getSharedPreferences("checkbox",MODE_PRIVATE);
+                } else if (!buttonView.isChecked()) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("remember", "false");
                     editor.apply();
@@ -114,7 +101,7 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         moveTaskToBack(true);
     }
 
@@ -143,16 +130,15 @@ public class LoginActivity extends AppCompatActivity{
         // TODO passwordValidation
 
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task ->
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task ->
         {
 
             if (task.isSuccessful()) {
                 FirebaseUser user = mAuth.getCurrentUser();
-                if(!user.isEmailVerified()){
+                if (!user.isEmailVerified()) {
                     Toast.makeText(this.getApplicationContext(), getString(R.string.login_fail_verify), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     Intent intent = new Intent(this.getApplicationContext(), CoreActivity.class);
                     startActivity(intent);
                 }

@@ -1,7 +1,5 @@
 package com.unipr.triviaapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -11,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 FirebaseDatabase.getInstance().getReference("Users")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .setValue(user).addOnCompleteListener(task1 -> {
+                        .setValue(user).addOnCompleteListener(task1 -> {
                     if (task1.isSuccessful()) {
                         Toast.makeText(RegisterActivity.this, getString(R.string.register_success), Toast.LENGTH_LONG).show();
                         mAuth.getCurrentUser().sendEmailVerification();
@@ -111,15 +111,13 @@ public class RegisterActivity extends AppCompatActivity {
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         intent.putExtra(ExtrasHelper.EMAIL, user.getEmail());
                         startActivity(intent);
-                    } else
-                    {
+                    } else {
                         Toast.makeText(RegisterActivity.this, getString(R.string.register_fai), Toast.LENGTH_LONG).show();
                         progressBar1.setVisibility(View.GONE);
 
                     }
                 });
-            } else
-            {
+            } else {
                 Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 progressBar1.setVisibility(View.GONE);
             }

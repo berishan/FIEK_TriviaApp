@@ -1,20 +1,16 @@
 package com.unipr.triviaapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-
 import android.widget.TextView;
 
-import com.unipr.triviaapp.helpers.ExtrasHelper;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                 String checkbox = preferences.getString("remember", "");
-                if(checkbox.equals("true")){
+                if (checkbox.equals("true")) {
                     startActivity(new Intent(MainActivity.this, CoreActivity.class));
-                } else{
+                } else {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
                 finish();

@@ -19,6 +19,10 @@ public class ResultAdapter extends BaseAdapter {
     List<Result> resultList = new ArrayList<>();
 
 
+    public ResultAdapter(Context context) {
+        this.context = context;
+    }
+
     public Context getContext() {
         return context;
     }
@@ -33,10 +37,6 @@ public class ResultAdapter extends BaseAdapter {
 
     public void setResultList(List<Result> resultList) {
         this.resultList = resultList;
-    }
-
-    public ResultAdapter(Context context) {
-        this.context = context;
     }
 
     @Override

@@ -1,8 +1,5 @@
 package com.unipr.triviaapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,16 +30,14 @@ import java.util.Locale;
 
 public class ResultActivity extends AppCompatActivity {
 
+    private final int TIMEOUT = 5000;
     String email;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     DatabaseReference reference;
     String userId;
-
     private TextView tvUsername, tvResult, tvScore;
     private MediaPlayer mediaPlayer = null;
-
-    private final int TIMEOUT = 5000;
     private int highScore;
 
     private String username, category, difficulty;
@@ -51,38 +49,38 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-         username = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
-         category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
-         difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);
+        username = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
+        category = getIntent().getStringExtra(ExtrasHelper.CATEGORY);
+        difficulty = getIntent().getStringExtra(ExtrasHelper.DIFFICULTY);
 
-         if(difficulty != null) {
-             switch (difficulty) {
-                 case "Medium":
-                     multiplier = 2;
-                     break;
-                 case "Hard":
-                     multiplier = 3;
-                     break;
-                 default:
-                     multiplier = 1;
-             }
-         }
+        if (difficulty != null) {
+            switch (difficulty) {
+                case "Medium":
+                    multiplier = 2;
+                    break;
+                case "Hard":
+                    multiplier = 3;
+                    break;
+                default:
+                    multiplier = 1;
+            }
+        }
 
 
-        totalQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS,0);
+        totalQuestions = getIntent().getIntExtra(ExtrasHelper.TOTAL_QUESTIONS, 0);
         correctAnswers = getIntent().getIntExtra(ExtrasHelper.CORRECT_ANSWERS, 0);
         score = getIntent().getIntExtra(ExtrasHelper.SCORE, 0) * multiplier;
 
-         tvUsername = findViewById(R.id.tvName);
-         tvUsername.setText(username);
-         tvResult = findViewById(R.id.tvResult);
-         tvScore = findViewById(R.id.tvScore);
+        tvUsername = findViewById(R.id.tvName);
+        tvUsername.setText(username);
+        tvResult = findViewById(R.id.tvResult);
+        tvScore = findViewById(R.id.tvScore);
 
-         tvResult.setText(String.format("Correct answers: %d/%d", correctAnswers, totalQuestions));
-         tvScore.setText(String.format("Score: %d", score));
+        tvResult.setText(String.format("Correct answers: %d/%d", correctAnswers, totalQuestions));
+        tvScore.setText(String.format("Score: %d", score));
 
-         mediaPlayer =  MediaPlayer.create(ResultActivity.this, R.raw.result);
-         mediaPlayer.start();
+        mediaPlayer = MediaPlayer.create(ResultActivity.this, R.raw.result);
+        mediaPlayer.start();
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -91,15 +89,14 @@ public class ResultActivity extends AppCompatActivity {
         userId = firebaseUser.getUid();
 
 
-
         reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                if(user != null){
+                if (user != null) {
                     email = user.getEmail();
-                    highScore =  user.getHighScore();
-                    if(highScore < score){
+                    highScore = user.getHighScore();
+                    if (highScore < score) {
                         user.setHighScore(score);
                         reference.child(userId).setValue(user);
 
@@ -112,7 +109,6 @@ public class ResultActivity extends AppCompatActivity {
                 Toast.makeText(ResultActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
-
 
 
         new Handler().postDelayed(new Runnable() {
@@ -130,7 +126,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void saveToDb() {
-        if(difficulty != null) {
+        if (difficulty != null) {
             SQLiteDatabase database = new DatabaseHelper(ResultActivity.this).getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put(DBConfig.USER, email);

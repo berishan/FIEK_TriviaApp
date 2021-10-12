@@ -1,17 +1,15 @@
 package com.unipr.triviaapp;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,10 +22,8 @@ import com.unipr.triviaapp.adapters.LeaderboardAdapter;
 import com.unipr.triviaapp.entities.Leaderboard;
 import com.unipr.triviaapp.entities.User;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -37,22 +33,17 @@ import java.util.List;
  */
 public class LeaderboardFragment extends Fragment {
 
-    private String email;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
-    private DatabaseReference reference;
-
-
-    private List<Leaderboard> leaderboardList;
-
-    ListView lvLeaderboard;
-    LeaderboardAdapter leaderboardAdapter;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    ListView lvLeaderboard;
+    LeaderboardAdapter leaderboardAdapter;
+    private String email;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private DatabaseReference reference;
+    private List<Leaderboard> leaderboardList;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -107,22 +98,22 @@ public class LeaderboardFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     User user = ds.getValue(User.class);
-                    if(user != null){
+                    if (user != null) {
                         Leaderboard leaderboard = new Leaderboard();
                         leaderboard.setId(snapshot.getKey().hashCode());
-                        leaderboard.setFullName(user.getName()+" "+ user.getLastName());
+                        leaderboard.setFullName(user.getName() + " " + user.getLastName());
                         leaderboard.setHighScore(user.getHighScore());
                         leaderboardList.add(leaderboard);
                     }
                     Collections.sort(leaderboardList);
                     List<Leaderboard> winnerList = new ArrayList<>();
-                    for(int i = 0; i < leaderboardList.size(); i++){
-                        if(i == 5) break;
+                    for (int i = 0; i < leaderboardList.size(); i++) {
+                        if (i == 5) break;
                         winnerList.add(leaderboardList.get(i));
                     }
-                    if(getActivity() != null) {
+                    if (getActivity() != null) {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -145,10 +136,7 @@ public class LeaderboardFragment extends Fragment {
         });
 
 
-
-
     }
-
 
 
 }

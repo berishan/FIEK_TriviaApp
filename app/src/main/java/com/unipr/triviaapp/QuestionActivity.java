@@ -24,7 +24,6 @@ import com.unipr.triviaapp.db.Queries;
 import com.unipr.triviaapp.entities.ApiResult;
 import com.unipr.triviaapp.entities.Question;
 import com.unipr.triviaapp.entities.QuestionApiEntity;
-import com.unipr.triviaapp.entities.Result;
 import com.unipr.triviaapp.entities.mappers.QuestionMapper;
 import com.unipr.triviaapp.helpers.ExtrasHelper;
 
@@ -48,10 +47,10 @@ import okhttp3.Response;
 public class QuestionActivity extends AppCompatActivity {
 
     final Map<String, Integer> categoryMap = new HashMap<>();
+    private final ArrayList<Question> mQuestionsList = new ArrayList<>();
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
     private int mCurrentPosition = 1;
-    private final ArrayList<Question> mQuestionsList = new ArrayList<>();
     private int numberOfQuestions;
     private String difficulty;
     private String category;
@@ -100,9 +99,9 @@ public class QuestionActivity extends AppCompatActivity {
         mUserName = getIntent().getStringExtra(ExtrasHelper.FULL_NAME);
 
         boolean isPrivateQuiz = getIntent().getBooleanExtra(ExtrasHelper.PRIVATE_QUIZ, false);
-        if(isPrivateQuiz){
+        if (isPrivateQuiz) {
             long quizId = getIntent().getLongExtra(ExtrasHelper.QUIZ_ID, 0L);
-            if(quizId > 0){
+            if (quizId > 0) {
                 getQuestionsFromDb(quizId);
             }
 
@@ -300,7 +299,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void startCountdown() {
-        mediaPlayer =  MediaPlayer.create(QuestionActivity.this, R.raw.countdown);
+        mediaPlayer = MediaPlayer.create(QuestionActivity.this, R.raw.countdown);
         countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -354,7 +353,7 @@ public class QuestionActivity extends AppCompatActivity {
         timeLeftInMillis = 30000;
     }
 
-    private void getQuestionsFromDb(long quizId){
+    private void getQuestionsFromDb(long quizId) {
         SQLiteDatabase database = new DatabaseHelper(QuestionActivity.this).getReadableDatabase();
         Cursor cursor = database.rawQuery(Queries.GET_QUESTIONS, new String[]{String.valueOf(quizId)});
         cursor.moveToFirst();
@@ -419,7 +418,7 @@ public class QuestionActivity extends AppCompatActivity {
                             member.question = StringEscapeUtils.unescapeHtml4(member.question);
                             member.correct_answer = StringEscapeUtils.unescapeHtml4(member.correct_answer);
                             List<String> inc = new ArrayList<>();
-                            for(int i = 0; i < 3; i++){
+                            for (int i = 0; i < 3; i++) {
                                 String string = member.incorrect_answers.get(i);
                                 string = StringEscapeUtils.unescapeHtml4(string);
                                 inc.add(string);
@@ -448,8 +447,6 @@ public class QuestionActivity extends AppCompatActivity {
             return null;
         }
     }
-
-
 
 
 }

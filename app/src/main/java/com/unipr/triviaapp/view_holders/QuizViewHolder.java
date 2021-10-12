@@ -11,6 +11,14 @@ public class QuizViewHolder {
     TextView tvQuizName, tvDateCreated, tvNumberOfQuestions;
     Button btnDeleteQuiz, btnStartQuiz;
 
+    public QuizViewHolder(View view) {
+        this.tvQuizName = view.findViewById(R.id.tvQuizName);
+        this.tvDateCreated = view.findViewById(R.id.tvDateCreated);
+        this.tvNumberOfQuestions = view.findViewById(R.id.tvQuestions);
+        this.btnDeleteQuiz = view.findViewById(R.id.btnDeleteQuiz);
+        this.btnStartQuiz = view.findViewById(R.id.btnPlayQuiz);
+    }
+
     public TextView getTvQuizName() {
         return tvQuizName;
     }
@@ -49,13 +57,5 @@ public class QuizViewHolder {
 
     public void setBtnStartQuiz(Button btnStartQuiz) {
         this.btnStartQuiz = btnStartQuiz;
-    }
-
-    public QuizViewHolder(View view){
-        this.tvQuizName = view.findViewById(R.id.tvQuizName);
-        this.tvDateCreated = view.findViewById(R.id.tvDateCreated);
-        this.tvNumberOfQuestions = view.findViewById(R.id.tvQuestions);
-        this.btnDeleteQuiz = view.findViewById(R.id.btnDeleteQuiz);
-        this.btnStartQuiz = view.findViewById(R.id.btnPlayQuiz);
     }
 }

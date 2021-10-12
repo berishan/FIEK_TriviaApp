@@ -9,7 +9,9 @@ public class Quiz {
     private String name;
     private List<Question> questions;
     private Integer numberOfQuestions;
-    public Quiz(){
+    private String dateCreated;
+
+    public Quiz() {
 
     }
 
@@ -46,12 +48,11 @@ public class Quiz {
         this.questions = questions;
     }
 
-    public int getNumberOfQuestions()
-    {
+    public int getNumberOfQuestions() {
         return this.numberOfQuestions;
     }
 
-    public void setNumberOfQuestions(int numberOfQuestions){
+    public void setNumberOfQuestions(int numberOfQuestions) {
         this.numberOfQuestions = numberOfQuestions;
     }
 
@@ -63,8 +64,6 @@ public class Quiz {
         this.dateCreated = dateCreated;
     }
 
-    private String dateCreated;
-
     public Integer getId() {
         return id;
     }
@@ -72,7 +71,6 @@ public class Quiz {
     public void setId(Integer id) {
         this.id = id;
     }
-
 
 
 }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class QuestionApiEntity{
+public class QuestionApiEntity {
     @SerializedName("response_code")
     public int response_code;
     @SerializedName("results")

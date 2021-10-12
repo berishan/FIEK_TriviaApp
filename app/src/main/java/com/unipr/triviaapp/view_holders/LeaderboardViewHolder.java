@@ -6,12 +6,16 @@ import android.widget.TextView;
 
 import com.unipr.triviaapp.R;
 
-import org.w3c.dom.Text;
-
 public class LeaderboardViewHolder {
 
     TextView leaderboardUsernameTv, leaderboardScoreTv;
     LinearLayout linearLayout;
+
+    public LeaderboardViewHolder(View view) {
+        leaderboardUsernameTv = view.findViewById(R.id.userTv);
+        leaderboardScoreTv = view.findViewById(R.id.scoreTv);
+
+    }
 
     public TextView getLeaderboardUsernameTv() {
         return leaderboardUsernameTv;
@@ -21,7 +25,6 @@ public class LeaderboardViewHolder {
         this.leaderboardUsernameTv = leaderboardUsernameTv;
     }
 
-
     public TextView getLeaderboardScoreTv() {
         return leaderboardScoreTv;
     }
@@ -30,18 +33,11 @@ public class LeaderboardViewHolder {
         this.leaderboardScoreTv = leaderboardScoreTv;
     }
 
-
     public LinearLayout getLinearLayout() {
         return linearLayout;
     }
 
     public void setLinearLayout(LinearLayout linearLayout) {
         this.linearLayout = linearLayout;
-    }
-
-    public LeaderboardViewHolder(View view) {
-        leaderboardUsernameTv = view.findViewById(R.id.userTv);
-        leaderboardScoreTv = view.findViewById(R.id.scoreTv);
-
     }
 }
